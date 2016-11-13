@@ -1,2 +1,6 @@
+
+bin
+obj
+.idea
 .vscode
 project.lock.json
