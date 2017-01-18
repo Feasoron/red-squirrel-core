@@ -1,10 +1,10 @@
 using System;
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using RedSquirrel.Models;
 
 namespace RedSquirrel.Data
 {
@@ -15,12 +15,7 @@ namespace RedSquirrel.Data
         public String Name { get; set; }
     }
 
-     // Add profile data for application users by adding properties to the ApplicationUser class
-    public class ApplicationUser : IdentityUser
-    {
-    }
-
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext :  IdentityDbContext<ApplicationUser>
     {
         protected IHostingEnvironment Environment { get; set; }
         protected ILogger<ApplicationDbContext> Log { get; set; }

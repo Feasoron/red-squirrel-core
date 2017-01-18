@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.Extensions.Configuration.UserSecrets;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using RedSquirrel.Models;
 //using Microsoft.EntityFrameworkCore.Sqlite;
 
 namespace RedSquirrel
@@ -47,27 +48,27 @@ namespace RedSquirrel
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
-  services.Configure<IdentityOptions>(options =>
-    {
-        // Password settings
-        options.Password.RequireDigit = true;
-        options.Password.RequiredLength = 8;
-        options.Password.RequireNonAlphanumeric = false;
-        options.Password.RequireUppercase = true;
-        options.Password.RequireLowercase = false;
-        
-        // Lockout settings
-        options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
-        options.Lockout.MaxFailedAccessAttempts = 10;
-        
-        // Cookie settings
-        options.Cookies.ApplicationCookie.ExpireTimeSpan = TimeSpan.FromDays(150);
-        options.Cookies.ApplicationCookie.LoginPath = "/Account/LogIn";
-        options.Cookies.ApplicationCookie.LogoutPath = "/Account/LogOff";
-        
-        // User settings
-        options.User.RequireUniqueEmail = true;
-    });
+            services.Configure<IdentityOptions>(options =>
+                {
+                    // Password settings
+                    options.Password.RequireDigit = true;
+                    options.Password.RequiredLength = 8;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireUppercase = true;
+                    options.Password.RequireLowercase = false;
+                    
+                    // Lockout settings
+                    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
+                    options.Lockout.MaxFailedAccessAttempts = 10;
+                    
+                    // Cookie settings
+                    options.Cookies.ApplicationCookie.ExpireTimeSpan = TimeSpan.FromDays(150);
+                    options.Cookies.ApplicationCookie.LoginPath = "/Account/LogIn";
+                    options.Cookies.ApplicationCookie.LogoutPath = "/Account/LogOff";
+                    
+                    // User settings
+                    options.User.RequireUniqueEmail = true;
+             });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -92,8 +93,12 @@ namespace RedSquirrel
                 ClientId = Configuration["Authentication:Google:ClientId"],
                 ClientSecret = Configuration["Authentication:Google:ClientSecret"]
             });
-
-            app.UseMvc();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
+            });
         }
     }
 }
