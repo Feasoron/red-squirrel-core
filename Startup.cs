@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration.UserSecrets;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using RedSquirrel.Models;
+using Microsoft.AspNetCore.StaticFiles;
 //using Microsoft.EntityFrameworkCore.Sqlite;
 
 namespace RedSquirrel
@@ -99,6 +100,7 @@ namespace RedSquirrel
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+            app.UseStaticFiles();
         }
     }
 }
