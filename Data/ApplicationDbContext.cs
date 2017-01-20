@@ -1,7 +1,10 @@
 using System;
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using RedSquirrel.Models;
 
 namespace RedSquirrel.Data
 {
@@ -12,12 +15,24 @@ namespace RedSquirrel.Data
         public String Name { get; set; }
     }
 
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext :  IdentityDbContext<ApplicationUser>
     {
+        protected IHostingEnvironment Environment { get; set; }
+        protected ILogger<ApplicationDbContext> Log { get; set; }
+
+        public ApplicationDbContext(IHostingEnvironment env, ILogger<ApplicationDbContext> log)
+        {            // Add framework services.
+            //Database.EnsureCreated();
+
+            Environment = env;
+            Log = log;
+        }
         public DbSet<Unit> Units { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Filename=/home/chris/sourcecode/red-squirrel/db.sqlite3.sqrl");
+            var path = Environment.ContentRootPath + "/squirrel.db";
+            Log.LogDebug("Opeing Database at :" + path);
+            optionsBuilder.UseSqlite("Filename=" + path );
         }
     }
 }
