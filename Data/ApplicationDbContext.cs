@@ -21,14 +21,16 @@ namespace RedSquirrel.Data
         protected ILogger<ApplicationDbContext> Log { get; set; }
 
         public ApplicationDbContext(IHostingEnvironment env, ILogger<ApplicationDbContext> log)
-        {
+        {            // Add framework services.
+            //Database.EnsureCreated();
+
             Environment = env;
             Log = log;
         }
         public DbSet<Unit> Units { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var path = Environment.ContentRootPath + "/db.sqlite3.sqrl";
+            var path = Environment.ContentRootPath + "/squirrel.db";
             Log.LogDebug("Opeing Database at :" + path);
             optionsBuilder.UseSqlite("Filename=" + path );
         }
