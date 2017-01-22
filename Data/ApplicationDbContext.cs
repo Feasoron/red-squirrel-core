@@ -15,6 +15,8 @@ namespace RedSquirrel.Data
         public String Name { get; set; }
     }
 
+    public
+
     public class ApplicationDbContext :  IdentityDbContext<ApplicationUser>
     {
         protected IHostingEnvironment Environment { get; set; }
