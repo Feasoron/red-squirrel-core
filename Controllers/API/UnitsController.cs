@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using RedSquirrel.Data;
+using RedSquirrel.Data.Entities;
 
-namespace RedSquirrel.Controllers
+namespace RedSquirrel.Controllers.API
 {
     [Route("api/[controller]")]
     public class UnitsController : Controller
