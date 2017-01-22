@@ -7,11 +7,12 @@ using RedSquirrel.Data;
 namespace RedSquirrel.Controllers
 {
     [Route("api/[controller]")]
-    public class ValuesController : Controller
+    public class UnitsController : Controller
     {
+        public Lazy<ApplicationDbContext> _context = new Lazy<ApplicationDbContext>();
         public ApplicationDbContext Context { get; set; }
 
-        public ValuesController(ApplicationDbContext context)
+        public UnitsController(ApplicationDbContext context)
         {
             Context = context;
         }
@@ -28,18 +29,18 @@ namespace RedSquirrel.Controllers
         [HttpGet("{id}")]
         public string Get(int id)
         {
-            return "value";
+            return Context.Units.Where(u => u.Id == id).ToString();
         }
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]string value)
+        public void Post([FromBody]Unit value)
         {
         }
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public void Put(int id, [FromBody]Unit value)
         {
         }
 
@@ -47,6 +48,14 @@ namespace RedSquirrel.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            try
+            {
+            
+            }
+            catch(Exception ex)
+            {
+                
+            }
         }
     }
 }
