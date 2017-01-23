@@ -2,35 +2,33 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using RedSquirrel.Data;
-using RedSquirrel.Data.Entities;
+using RedSquirrel.Models;
+using RedSquirrel.Services;
 
 namespace RedSquirrel.Controllers.API
 {
     [Route("api/[controller]")]
     public class UnitsController : Controller
     {
-        public Lazy<ApplicationDbContext> _context = new Lazy<ApplicationDbContext>();
-        public ApplicationDbContext Context { get; set; }
+        protected UnitService Service { get; set; }
 
-        public UnitsController(ApplicationDbContext context)
+        public UnitsController(UnitService service)
         {
-            Context = context;
+            Service = service;
         }
 
         // GET api/values
         [HttpGet]
         public IEnumerable<Object> Get()
         {
-            return Context.Units.ToList();
-          //  return new string[] { "value1", "value2" };
+            return Service.GetAll();
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public JsonResult Get(int id)
         {
-            return Context.Units.Where(u => u.Id == id).ToString();
+           return new JsonResult(Service.GetById(id));
         }
 
         // POST api/values
