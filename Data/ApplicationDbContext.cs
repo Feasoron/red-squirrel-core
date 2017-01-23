@@ -3,12 +3,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using RedSquirrel.Models;
+using User = RedSquirrel.Models.ApplicationUser;
 using RedSquirrel.Data.Entities;
 
 namespace RedSquirrel.Data
 {
-    public class ApplicationDbContext :  IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext :  IdentityDbContext<User>
     {
         protected IHostingEnvironment Environment { get; set; }
         protected ILogger<ApplicationDbContext> Log { get; set; }
