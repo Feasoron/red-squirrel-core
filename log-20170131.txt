@@ -1,0 +1,199 @@
+2017-01-31 18:45:43.318 -05:00 [Information] User profile is available. Using '"/home/chris/.aspnet/DataProtection-Keys"' as key repository; keys will not be encrypted at rest.
+2017-01-31 18:45:43.417 -05:00 [Debug] Hosting starting
+2017-01-31 18:45:43.507 -05:00 [Debug] Hosting started
+2017-01-31 18:45:45.814 -05:00 [Debug] Connection id ""0HL2A6D3D4TQN"" started.
+2017-01-31 18:45:45.936 -05:00 [Information] Request starting HTTP/1.1 GET http://localhost:5000/api/locations  
+2017-01-31 18:45:46.239 -05:00 [Debug] Request successfully matched the route with name 'null' and template '"api/Locations"'.
+2017-01-31 18:45:46.271 -05:00 [Debug] Action '"RedSquirrel.Controllers.API.LocationsController.Post (red-squirrel-core)"' with id '"e6d03efd-12f8-47c4-8b7f-a535a9d72460"' did not match the constraint '"Microsoft.AspNetCore.Mvc.Internal.HttpMethodActionConstraint"'
+2017-01-31 18:45:46.311 -05:00 [Debug] Executing action "RedSquirrel.Controllers.API.LocationsController.Get (red-squirrel-core)"
+2017-01-31 18:45:46.456 -05:00 [Information] Executing action method "RedSquirrel.Controllers.API.LocationsController.Get (red-squirrel-core)" with arguments (null) - ModelState is Valid
+2017-01-31 18:45:46.462 -05:00 [Debug] Opeing Database at :/home/chris/sourcecode/red-squirrel-core/squirrel.db
+2017-01-31 18:45:47.556 -05:00 [Error] Error Loading All Units, "Microsoft.Data.Sqlite.SqliteException: SQLite Error 1: 'no such table: Locations'.
+   at Microsoft.Data.Sqlite.Interop.MarshalEx.ThrowExceptionForRC(Int32 rc, Sqlite3Handle db)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.EntityFrameworkCore.Storage.Internal.RelationalCommand.Execute(IRelationalConnection connection, String executeMethod, IReadOnlyDictionary`2 parameterValues, Boolean closeConnection)
+   at Microsoft.EntityFrameworkCore.Storage.Internal.RelationalCommand.ExecuteReader(IRelationalConnection connection, IReadOnlyDictionary`2 parameterValues)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable.Enumerator.BufferlessMoveNext(Boolean buffer)
+   at Microsoft.EntityFrameworkCore.Query.QueryMethodProvider.<_ShapedQuery>d__3`1.MoveNext()
+   at Microsoft.EntityFrameworkCore.Query.Internal.LinqOperatorProvider.<_TrackEntities>d__15`2.MoveNext()
+   at Microsoft.EntityFrameworkCore.Query.Internal.LinqOperatorProvider.ExceptionInterceptor`1.EnumeratorExceptionInterceptor.MoveNext()
+   at System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at RedSquirrel.Services.LocationService.GetAll() in /home/chris/sourcecode/red-squirrel-core/Services/LocationService.cs:line 26"
+2017-01-31 18:45:47.557 -05:00 [Debug] Executed action method "RedSquirrel.Controllers.API.LocationsController.Get (red-squirrel-core)", returned result "Microsoft.AspNetCore.Mvc.ObjectResult".
+2017-01-31 18:45:47.591 -05:00 [Debug] No information found on request to perform content negotiation.
+2017-01-31 18:45:47.596 -05:00 [Debug] Selected output formatter '"Microsoft.AspNetCore.Mvc.Formatters.JsonOutputFormatter"' and content type '"application/json"' to write the response.
+2017-01-31 18:45:47.596 -05:00 [Information] Executing ObjectResult, writing value "Microsoft.AspNetCore.Mvc.ControllerContext".
+2017-01-31 18:45:47.864 -05:00 [Information] Executed action "RedSquirrel.Controllers.API.LocationsController.Get (red-squirrel-core)" in 1548.5542ms
+2017-01-31 18:45:47.894 -05:00 [Debug] Connection id ""0HL2A6D3D4TQN"" completed keep alive response.
+2017-01-31 18:45:47.899 -05:00 [Information] Request finished in 1989.0344ms 200 application/json; charset=utf-8
+2017-01-31 18:45:48.170 -05:00 [Information] Request starting HTTP/1.1 GET http://localhost:5000/favicon.ico  
+2017-01-31 18:45:48.175 -05:00 [Debug] Request successfully matched the route with name '"default"' and template '"{controller=Home}/{action=Index}/{id?}"'.
+2017-01-31 18:45:48.216 -05:00 [Debug] No actions matched the current request
+2017-01-31 18:45:48.217 -05:00 [Debug] Request did not match any routes.
+2017-01-31 18:45:48.237 -05:00 [Information] Sending file. Request path: '"/favicon.ico"'. Physical path: '"/home/chris/sourcecode/red-squirrel-core/wwwroot/favicon.ico"'
+2017-01-31 18:45:48.259 -05:00 [Debug] Connection id ""0HL2A6D3D4TQN"" completed keep alive response.
+2017-01-31 18:45:48.259 -05:00 [Information] Request finished in 89.1449ms 200 image/x-icon
+2017-01-31 18:46:06.090 -05:00 [Information] Request starting HTTP/1.1 GET http://localhost:5000/api/units  
+2017-01-31 18:46:06.090 -05:00 [Debug] Request successfully matched the route with name 'null' and template '"api/Units"'.
+2017-01-31 18:46:06.090 -05:00 [Debug] Action '"RedSquirrel.Controllers.API.UnitsController.Post (red-squirrel-core)"' with id '"ff50da97-4fa8-4f7c-ab7c-a79a4d3806d4"' did not match the constraint '"Microsoft.AspNetCore.Mvc.Internal.HttpMethodActionConstraint"'
+2017-01-31 18:46:06.091 -05:00 [Debug] Executing action "RedSquirrel.Controllers.API.UnitsController.Get (red-squirrel-core)"
+2017-01-31 18:46:06.093 -05:00 [Information] Executing action method "RedSquirrel.Controllers.API.UnitsController.Get (red-squirrel-core)" with arguments (null) - ModelState is Valid
+2017-01-31 18:46:06.095 -05:00 [Debug] Opeing Database at :/home/chris/sourcecode/red-squirrel-core/squirrel.db
+2017-01-31 18:46:06.228 -05:00 [Debug] Executed action method "RedSquirrel.Controllers.API.UnitsController.Get (red-squirrel-core)", returned result "Microsoft.AspNetCore.Mvc.ObjectResult".
+2017-01-31 18:46:06.229 -05:00 [Debug] No information found on request to perform content negotiation.
+2017-01-31 18:46:06.229 -05:00 [Debug] Selected output formatter '"Microsoft.AspNetCore.Mvc.Formatters.JsonOutputFormatter"' and content type '"application/json"' to write the response.
+2017-01-31 18:46:06.229 -05:00 [Information] Executing ObjectResult, writing value "Microsoft.AspNetCore.Mvc.ControllerContext".
+2017-01-31 18:46:06.265 -05:00 [Information] Executed action "RedSquirrel.Controllers.API.UnitsController.Get (red-squirrel-core)" in 173.8385ms
+2017-01-31 18:46:06.265 -05:00 [Debug] Connection id ""0HL2A6D3D4TQN"" completed keep alive response.
+2017-01-31 18:46:06.265 -05:00 [Information] Request finished in 175.946ms 200 application/json; charset=utf-8
+2017-01-31 18:47:56.598 -05:00 [Debug] Hosting shutdown
+2017-01-31 18:47:56.637 -05:00 [Debug] Connection id ""0HL2A6D3D4TQN"" disconnecting.
+2017-01-31 18:47:56.637 -05:00 [Debug] Connection id ""0HL2A6D3D4TQN"" sending FIN.
+2017-01-31 18:47:56.644 -05:00 [Debug] Connection id ""0HL2A6D3D4TQN"" sent FIN with status "0".
+2017-01-31 18:47:56.647 -05:00 [Debug] Connection id ""0HL2A6D3D4TQN"" stopped.
+2017-01-31 18:48:02.065 -05:00 [Information] User profile is available. Using '"/home/chris/.aspnet/DataProtection-Keys"' as key repository; keys will not be encrypted at rest.
+2017-01-31 18:48:02.203 -05:00 [Debug] Hosting starting
+2017-01-31 18:48:02.295 -05:00 [Debug] Hosting started
+2017-01-31 18:48:06.384 -05:00 [Debug] Connection id ""0HL2A6ED9NISL"" started.
+2017-01-31 18:48:06.509 -05:00 [Information] Request starting HTTP/1.1 GET http://localhost:5000/api/foods  
+2017-01-31 18:48:06.814 -05:00 [Debug] Request successfully matched the route with name 'null' and template '"api/Foods"'.
+2017-01-31 18:48:06.847 -05:00 [Debug] Action '"RedSquirrel.Controllers.API.FoodsController.Post (red-squirrel-core)"' with id '"de0b8b88-6a2c-4e19-aba1-38966ad49f39"' did not match the constraint '"Microsoft.AspNetCore.Mvc.Internal.HttpMethodActionConstraint"'
+2017-01-31 18:48:06.885 -05:00 [Debug] Executing action "RedSquirrel.Controllers.API.FoodsController.Get (red-squirrel-core)"
+2017-01-31 18:48:07.029 -05:00 [Information] Executing action method "RedSquirrel.Controllers.API.FoodsController.Get (red-squirrel-core)" with arguments (null) - ModelState is Valid
+2017-01-31 18:48:07.035 -05:00 [Debug] Opeing Database at :/home/chris/sourcecode/red-squirrel-core/squirrel.db
+2017-01-31 18:48:08.088 -05:00 [Error] Error Loading All Foods, "Microsoft.Data.Sqlite.SqliteException: SQLite Error 1: 'no such table: Foods'.
+   at Microsoft.Data.Sqlite.Interop.MarshalEx.ThrowExceptionForRC(Int32 rc, Sqlite3Handle db)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.EntityFrameworkCore.Storage.Internal.RelationalCommand.Execute(IRelationalConnection connection, String executeMethod, IReadOnlyDictionary`2 parameterValues, Boolean closeConnection)
+   at Microsoft.EntityFrameworkCore.Storage.Internal.RelationalCommand.ExecuteReader(IRelationalConnection connection, IReadOnlyDictionary`2 parameterValues)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable.Enumerator.BufferlessMoveNext(Boolean buffer)
+   at Microsoft.EntityFrameworkCore.Query.QueryMethodProvider.<_ShapedQuery>d__3`1.MoveNext()
+   at Microsoft.EntityFrameworkCore.Query.Internal.LinqOperatorProvider.<_TrackEntities>d__15`2.MoveNext()
+   at Microsoft.EntityFrameworkCore.Query.Internal.LinqOperatorProvider.ExceptionInterceptor`1.EnumeratorExceptionInterceptor.MoveNext()
+   at System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at RedSquirrel.Services.FoodService.GetAll() in /home/chris/sourcecode/red-squirrel-core/Services/FoodService.cs:line 26"
+2017-01-31 18:48:08.089 -05:00 [Debug] Executed action method "RedSquirrel.Controllers.API.FoodsController.Get (red-squirrel-core)", returned result "Microsoft.AspNetCore.Mvc.ObjectResult".
+2017-01-31 18:48:08.125 -05:00 [Debug] No information found on request to perform content negotiation.
+2017-01-31 18:48:08.130 -05:00 [Debug] Selected output formatter '"Microsoft.AspNetCore.Mvc.Formatters.JsonOutputFormatter"' and content type '"application/json"' to write the response.
+2017-01-31 18:48:08.130 -05:00 [Information] Executing ObjectResult, writing value "Microsoft.AspNetCore.Mvc.ControllerContext".
+2017-01-31 18:48:08.398 -05:00 [Information] Executed action "RedSquirrel.Controllers.API.FoodsController.Get (red-squirrel-core)" in 1500.271ms
+2017-01-31 18:48:08.422 -05:00 [Debug] Connection id ""0HL2A6ED9NISL"" completed keep alive response.
+2017-01-31 18:48:08.428 -05:00 [Information] Request finished in 1943.6097ms 200 application/json; charset=utf-8
+2017-01-31 18:48:21.721 -05:00 [Debug] Hosting shutdown
+2017-01-31 18:48:21.754 -05:00 [Debug] Connection id ""0HL2A6ED9NISL"" disconnecting.
+2017-01-31 18:48:21.755 -05:00 [Debug] Connection id ""0HL2A6ED9NISL"" sending FIN.
+2017-01-31 18:48:21.761 -05:00 [Debug] Connection id ""0HL2A6ED9NISL"" sent FIN with status "0".
+2017-01-31 18:48:21.763 -05:00 [Debug] Connection id ""0HL2A6ED9NISL"" stopped.
+2017-01-31 18:49:32.961 -05:00 [Information] User profile is available. Using '"/home/chris/.aspnet/DataProtection-Keys"' as key repository; keys will not be encrypted at rest.
+2017-01-31 18:49:33.063 -05:00 [Debug] Hosting starting
+2017-01-31 18:49:33.151 -05:00 [Debug] Hosting started
+2017-01-31 18:49:35.137 -05:00 [Debug] Connection id ""0HL2A6F7O4VN9"" started.
+2017-01-31 18:49:35.260 -05:00 [Information] Request starting HTTP/1.1 GET http://localhost:5000/api/foods  
+2017-01-31 18:49:35.558 -05:00 [Debug] Request successfully matched the route with name 'null' and template '"api/Foods"'.
+2017-01-31 18:49:35.591 -05:00 [Debug] Action '"RedSquirrel.Controllers.API.FoodsController.Post (red-squirrel-core)"' with id '"9748a523-8f08-4581-8850-8344e0655eb2"' did not match the constraint '"Microsoft.AspNetCore.Mvc.Internal.HttpMethodActionConstraint"'
+2017-01-31 18:49:35.629 -05:00 [Debug] Executing action "RedSquirrel.Controllers.API.FoodsController.Get (red-squirrel-core)"
+2017-01-31 18:49:35.773 -05:00 [Information] Executing action method "RedSquirrel.Controllers.API.FoodsController.Get (red-squirrel-core)" with arguments (null) - ModelState is Valid
+2017-01-31 18:49:35.780 -05:00 [Debug] Opeing Database at :/home/chris/sourcecode/red-squirrel-core/squirrel.db
+2017-01-31 18:49:36.830 -05:00 [Debug] Executed action method "RedSquirrel.Controllers.API.FoodsController.Get (red-squirrel-core)", returned result "Microsoft.AspNetCore.Mvc.ObjectResult".
+2017-01-31 18:49:36.865 -05:00 [Debug] No information found on request to perform content negotiation.
+2017-01-31 18:49:36.870 -05:00 [Debug] Selected output formatter '"Microsoft.AspNetCore.Mvc.Formatters.JsonOutputFormatter"' and content type '"application/json"' to write the response.
+2017-01-31 18:49:36.870 -05:00 [Information] Executing ObjectResult, writing value "Microsoft.AspNetCore.Mvc.ControllerContext".
+2017-01-31 18:49:37.137 -05:00 [Information] Executed action "RedSquirrel.Controllers.API.FoodsController.Get (red-squirrel-core)" in 1502.1765ms
+2017-01-31 18:49:37.156 -05:00 [Debug] Connection id ""0HL2A6F7O4VN9"" completed keep alive response.
+2017-01-31 18:49:37.162 -05:00 [Information] Request finished in 1926.4005ms 200 application/json; charset=utf-8
+2017-01-31 18:49:37.408 -05:00 [Information] Request starting HTTP/1.1 GET http://localhost:5000/favicon.ico  
+2017-01-31 18:49:37.414 -05:00 [Debug] Request successfully matched the route with name '"default"' and template '"{controller=Home}/{action=Index}/{id?}"'.
+2017-01-31 18:49:37.450 -05:00 [Debug] No actions matched the current request
+2017-01-31 18:49:37.451 -05:00 [Debug] Request did not match any routes.
+2017-01-31 18:49:37.470 -05:00 [Information] Sending file. Request path: '"/favicon.ico"'. Physical path: '"/home/chris/sourcecode/red-squirrel-core/wwwroot/favicon.ico"'
+2017-01-31 18:49:37.493 -05:00 [Debug] Connection id ""0HL2A6F7O4VN9"" completed keep alive response.
+2017-01-31 18:49:37.493 -05:00 [Information] Request finished in 84.8141ms 200 image/x-icon
+2017-01-31 18:49:42.108 -05:00 [Information] Request starting HTTP/1.1 GET http://localhost:5000/api/units  
+2017-01-31 18:49:42.108 -05:00 [Debug] Request successfully matched the route with name 'null' and template '"api/Units"'.
+2017-01-31 18:49:42.108 -05:00 [Debug] Action '"RedSquirrel.Controllers.API.UnitsController.Post (red-squirrel-core)"' with id '"57ccde23-b82c-48f2-8c4f-5c545c6b84a0"' did not match the constraint '"Microsoft.AspNetCore.Mvc.Internal.HttpMethodActionConstraint"'
+2017-01-31 18:49:42.109 -05:00 [Debug] Executing action "RedSquirrel.Controllers.API.UnitsController.Get (red-squirrel-core)"
+2017-01-31 18:49:42.111 -05:00 [Information] Executing action method "RedSquirrel.Controllers.API.UnitsController.Get (red-squirrel-core)" with arguments (null) - ModelState is Valid
+2017-01-31 18:49:42.113 -05:00 [Debug] Opeing Database at :/home/chris/sourcecode/red-squirrel-core/squirrel.db
+2017-01-31 18:49:42.171 -05:00 [Debug] Connection id ""0HL2A6F7O4VN9"" received FIN.
+2017-01-31 18:49:42.179 -05:00 [Debug] Connection id ""0HL2A6F7O4VNA"" started.
+2017-01-31 18:49:42.183 -05:00 [Information] Request starting HTTP/1.1 GET http://localhost:5000/api/units  
+2017-01-31 18:49:42.184 -05:00 [Debug] Request successfully matched the route with name 'null' and template '"api/Units"'.
+2017-01-31 18:49:42.188 -05:00 [Debug] Action '"RedSquirrel.Controllers.API.UnitsController.Post (red-squirrel-core)"' with id '"57ccde23-b82c-48f2-8c4f-5c545c6b84a0"' did not match the constraint '"Microsoft.AspNetCore.Mvc.Internal.HttpMethodActionConstraint"'
+2017-01-31 18:49:42.188 -05:00 [Debug] Executing action "RedSquirrel.Controllers.API.UnitsController.Get (red-squirrel-core)"
+2017-01-31 18:49:42.188 -05:00 [Information] Executing action method "RedSquirrel.Controllers.API.UnitsController.Get (red-squirrel-core)" with arguments (null) - ModelState is Valid
+2017-01-31 18:49:42.188 -05:00 [Debug] Opeing Database at :/home/chris/sourcecode/red-squirrel-core/squirrel.db
+2017-01-31 18:49:42.301 -05:00 [Debug] Executed action method "RedSquirrel.Controllers.API.UnitsController.Get (red-squirrel-core)", returned result "Microsoft.AspNetCore.Mvc.ObjectResult".
+2017-01-31 18:49:42.301 -05:00 [Debug] Executed action method "RedSquirrel.Controllers.API.UnitsController.Get (red-squirrel-core)", returned result "Microsoft.AspNetCore.Mvc.ObjectResult".
+2017-01-31 18:49:42.301 -05:00 [Debug] No information found on request to perform content negotiation.
+2017-01-31 18:49:42.302 -05:00 [Debug] No information found on request to perform content negotiation.
+2017-01-31 18:49:42.302 -05:00 [Debug] Selected output formatter '"Microsoft.AspNetCore.Mvc.Formatters.JsonOutputFormatter"' and content type '"application/json"' to write the response.
+2017-01-31 18:49:42.302 -05:00 [Debug] Selected output formatter '"Microsoft.AspNetCore.Mvc.Formatters.JsonOutputFormatter"' and content type '"application/json"' to write the response.
+2017-01-31 18:49:42.303 -05:00 [Information] Executing ObjectResult, writing value "Microsoft.AspNetCore.Mvc.ControllerContext".
+2017-01-31 18:49:42.302 -05:00 [Information] Executing ObjectResult, writing value "Microsoft.AspNetCore.Mvc.ControllerContext".
+2017-01-31 18:49:42.342 -05:00 [Information] Executed action "RedSquirrel.Controllers.API.UnitsController.Get (red-squirrel-core)" in 232.1789ms
+2017-01-31 18:49:42.343 -05:00 [Debug] Connection id ""0HL2A6F7O4VN9"" completed keep alive response.
+2017-01-31 18:49:42.343 -05:00 [Information] Request finished in 234.9461ms 200 application/json; charset=utf-8
+2017-01-31 18:49:42.342 -05:00 [Information] Executed action "RedSquirrel.Controllers.API.UnitsController.Get (red-squirrel-core)" in 153.7284ms
+2017-01-31 18:49:42.343 -05:00 [Debug] Connection id ""0HL2A6F7O4VNA"" completed keep alive response.
+2017-01-31 18:49:42.344 -05:00 [Information] Request finished in 160.2007ms 200 application/json; charset=utf-8
+2017-01-31 18:49:42.344 -05:00 [Debug] Connection id ""0HL2A6F7O4VN9"" disconnecting.
+2017-01-31 18:49:42.345 -05:00 [Information] Connection id ""0HL2A6F7O4VN9"" communication error.
+Microsoft.AspNetCore.Server.Kestrel.Internal.Networking.UvException: Error -32 EPIPE broken pipe
+2017-01-31 18:49:42.345 -05:00 [Debug] Connection id ""0HL2A6F7O4VN9"" disconnecting.
+2017-01-31 18:49:42.346 -05:00 [Debug] Connection id ""0HL2A6F7O4VN9"" sending FIN.
+2017-01-31 18:49:42.359 -05:00 [Debug] Connection id ""0HL2A6F7O4VN9"" sent FIN with status "-107".
+2017-01-31 18:49:42.367 -05:00 [Debug] Connection id ""0HL2A6F7O4VN9"" stopped.
+2017-01-31 18:49:46.472 -05:00 [Information] Request starting HTTP/1.1 GET http://localhost:5000/api/locations  
+2017-01-31 18:49:46.473 -05:00 [Debug] Request successfully matched the route with name 'null' and template '"api/Locations"'.
+2017-01-31 18:49:46.473 -05:00 [Debug] Action '"RedSquirrel.Controllers.API.LocationsController.Post (red-squirrel-core)"' with id '"db080494-c3b0-43e1-9368-0bb8e4688c6e"' did not match the constraint '"Microsoft.AspNetCore.Mvc.Internal.HttpMethodActionConstraint"'
+2017-01-31 18:49:46.474 -05:00 [Debug] Executing action "RedSquirrel.Controllers.API.LocationsController.Get (red-squirrel-core)"
+2017-01-31 18:49:46.476 -05:00 [Information] Executing action method "RedSquirrel.Controllers.API.LocationsController.Get (red-squirrel-core)" with arguments (null) - ModelState is Valid
+2017-01-31 18:49:46.477 -05:00 [Debug] Opeing Database at :/home/chris/sourcecode/red-squirrel-core/squirrel.db
+2017-01-31 18:49:46.486 -05:00 [Debug] Executed action method "RedSquirrel.Controllers.API.LocationsController.Get (red-squirrel-core)", returned result "Microsoft.AspNetCore.Mvc.ObjectResult".
+2017-01-31 18:49:46.486 -05:00 [Debug] No information found on request to perform content negotiation.
+2017-01-31 18:49:46.486 -05:00 [Debug] Selected output formatter '"Microsoft.AspNetCore.Mvc.Formatters.JsonOutputFormatter"' and content type '"application/json"' to write the response.
+2017-01-31 18:49:46.486 -05:00 [Information] Executing ObjectResult, writing value "Microsoft.AspNetCore.Mvc.ControllerContext".
+2017-01-31 18:49:46.488 -05:00 [Information] Executed action "RedSquirrel.Controllers.API.LocationsController.Get (red-squirrel-core)" in 14.5707ms
+2017-01-31 18:49:46.488 -05:00 [Debug] Connection id ""0HL2A6F7O4VNA"" completed keep alive response.
+2017-01-31 18:49:46.489 -05:00 [Information] Request finished in 16.1315ms 200 application/json; charset=utf-8
+2017-01-31 18:49:58.650 -05:00 [Debug] Hosting shutdown
+2017-01-31 18:49:58.688 -05:00 [Debug] Connection id ""0HL2A6F7O4VNA"" disconnecting.
+2017-01-31 18:49:58.689 -05:00 [Debug] Connection id ""0HL2A6F7O4VNA"" sending FIN.
+2017-01-31 18:49:58.689 -05:00 [Debug] Connection id ""0HL2A6F7O4VNA"" sent FIN with status "0".
+2017-01-31 18:49:58.689 -05:00 [Debug] Connection id ""0HL2A6F7O4VNA"" stopped.
+2017-01-31 18:52:39.408 -05:00 [Information] User profile is available. Using '"/home/chris/.aspnet/DataProtection-Keys"' as key repository; keys will not be encrypted at rest.
+2017-01-31 18:52:39.508 -05:00 [Debug] Hosting starting
+2017-01-31 18:52:39.600 -05:00 [Debug] Hosting started
+2017-01-31 18:52:42.863 -05:00 [Debug] Connection id ""0HL2A6GVMDE27"" started.
+2017-01-31 18:52:43.003 -05:00 [Information] Request starting HTTP/1.1 GET http://localhost:5000/api/foods  
+2017-01-31 18:52:43.290 -05:00 [Debug] Request successfully matched the route with name 'null' and template '"api/Foods"'.
+2017-01-31 18:52:43.322 -05:00 [Debug] Action '"RedSquirrel.Controllers.API.FoodsController.Post (red-squirrel-core)"' with id '"9d5be4a1-dfdf-4fce-9128-2923430c33d8"' did not match the constraint '"Microsoft.AspNetCore.Mvc.Internal.HttpMethodActionConstraint"'
+2017-01-31 18:52:43.359 -05:00 [Debug] Executing action "RedSquirrel.Controllers.API.FoodsController.Get (red-squirrel-core)"
+2017-01-31 18:52:43.500 -05:00 [Information] Executing action method "RedSquirrel.Controllers.API.FoodsController.Get (red-squirrel-core)" with arguments (null) - ModelState is Valid
+2017-01-31 18:52:43.506 -05:00 [Debug] Opeing Database at :/home/chris/sourcecode/red-squirrel-core/squirrel.db
+2017-01-31 18:52:44.553 -05:00 [Error] Error Loading All Foods, "Microsoft.Data.Sqlite.SqliteException: SQLite Error 1: 'no such table: Food'.
+   at Microsoft.Data.Sqlite.Interop.MarshalEx.ThrowExceptionForRC(Int32 rc, Sqlite3Handle db)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.EntityFrameworkCore.Storage.Internal.RelationalCommand.Execute(IRelationalConnection connection, String executeMethod, IReadOnlyDictionary`2 parameterValues, Boolean closeConnection)
+   at Microsoft.EntityFrameworkCore.Storage.Internal.RelationalCommand.ExecuteReader(IRelationalConnection connection, IReadOnlyDictionary`2 parameterValues)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable.Enumerator.BufferlessMoveNext(Boolean buffer)
+   at Microsoft.EntityFrameworkCore.Query.QueryMethodProvider.<_ShapedQuery>d__3`1.MoveNext()
+   at Microsoft.EntityFrameworkCore.Query.Internal.LinqOperatorProvider.<_TrackEntities>d__15`2.MoveNext()
+   at Microsoft.EntityFrameworkCore.Query.Internal.LinqOperatorProvider.ExceptionInterceptor`1.EnumeratorExceptionInterceptor.MoveNext()
+   at System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at RedSquirrel.Services.FoodService.GetAll() in /home/chris/sourcecode/red-squirrel-core/Services/FoodService.cs:line 26"
+2017-01-31 18:52:44.554 -05:00 [Debug] Executed action method "RedSquirrel.Controllers.API.FoodsController.Get (red-squirrel-core)", returned result "Microsoft.AspNetCore.Mvc.ObjectResult".
+2017-01-31 18:52:44.588 -05:00 [Debug] No information found on request to perform content negotiation.
+2017-01-31 18:52:44.593 -05:00 [Debug] Selected output formatter '"Microsoft.AspNetCore.Mvc.Formatters.JsonOutputFormatter"' and content type '"application/json"' to write the response.
+2017-01-31 18:52:44.593 -05:00 [Information] Executing ObjectResult, writing value "Microsoft.AspNetCore.Mvc.ControllerContext".
+2017-01-31 18:52:44.868 -05:00 [Information] Executed action "RedSquirrel.Controllers.API.FoodsController.Get (red-squirrel-core)" in 1486.2391ms
+2017-01-31 18:52:44.894 -05:00 [Debug] Connection id ""0HL2A6GVMDE27"" completed keep alive response.
+2017-01-31 18:52:44.901 -05:00 [Information] Request finished in 1923.2889ms 200 application/json; charset=utf-8
+2017-01-31 18:54:45.658 -05:00 [Debug] Connection id ""0HL2A6GVMDE27"" disconnecting.
+2017-01-31 18:54:45.659 -05:00 [Debug] Connection id ""0HL2A6GVMDE27"" sending FIN.
+2017-01-31 18:54:45.668 -05:00 [Debug] Connection id ""0HL2A6GVMDE27"" sent FIN with status "0".
+2017-01-31 18:54:45.672 -05:00 [Debug] Connection id ""0HL2A6GVMDE27"" stopped.
+2017-01-31 19:26:25.111 -05:00 [Debug] Hosting shutdown
