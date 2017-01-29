@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using RedSquirrel.Models;
 using RedSquirrel.Services;
@@ -26,7 +25,7 @@ namespace RedSquirrel.Controllers.API
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public JsonResult Get(int id)
+        public JsonResult Get(Int32 id)
         {
            return new JsonResult(Service.GetById(id));
         }
@@ -41,7 +40,7 @@ namespace RedSquirrel.Controllers.API
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public ActionResult Put(int id, Unit value)
+        public ActionResult Put(Int32 id, Unit value)
         {
             var resp = Service.UpdateUnit(value);
             return Ok();
@@ -49,7 +48,7 @@ namespace RedSquirrel.Controllers.API
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(Int32 id)
         {
             var resp = Service.Delete(id);
             return Ok();

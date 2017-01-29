@@ -14,12 +14,12 @@ namespace RedSquirrel.Data
         protected ILogger<ApplicationDbContext> Log { get; set; }
         
         public DbSet<Unit> Units { get; set; }
-        public DbSet<Unit> Food { get; set; }
-        public DbSet<Unit> FoodConversion { get; set; }
-        public DbSet<Unit> Location { get; set; }
-        public DbSet<Unit> Substitution { get; set; }
-        public DbSet<Unit> UnitConversion { get; set; }
-        public DbSet<Unit> Inventory { get; set; }
+        public DbSet<Food> Foods { get; set; }
+        public DbSet<FoodConversion> FoodConversions { get; set; }
+        public DbSet<Location> Locations { get; set; }
+        public DbSet<Substitution> Substitutions { get; set; }
+        public DbSet<UnitConversion> UnitConversions { get; set; }
+        public DbSet<Inventory> Inventories { get; set; }
 
         public ApplicationDbContext(IHostingEnvironment env, ILogger<ApplicationDbContext> log)
         {    
