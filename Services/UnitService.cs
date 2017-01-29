@@ -52,6 +52,53 @@ namespace RedSquirrel.Services
             }
         }
 
+        public async Task<Int32> AddUnit(Unit unit)        
+        {
+            try
+            {
+                if(unit.Id != 0)
+                {
+                    throw new InvalidOperationException();
+                }
+
+                var ent = _mapper.Map<Data.Entities.Unit>(unit);
+                Context.Units.Add(ent);
+
+                await Context.SaveChangesAsync();
+
+                return ent.Id;
+            }
+            catch(Exception ex)
+            {
+                Log.LogError("Error Adding Unit, {Error}",  ex);
+                return -1;
+            }            
+        }
+
+        public async Task<Boolean> UpdateUnit(Unit unit)
+        {
+            try
+            {
+                var ent = Context.Units.FirstOrDefault(u => u.Id == unit.Id);
+                
+                if(ent == null)
+                {
+                    // TODO replace with a Not Found Exception
+                    throw new Exception();
+                }
+
+                ent.Name = unit.Name;
+                await Context.SaveChangesAsync();
+
+                return true;
+            }
+            catch(Exception ex)
+            {
+                Log.LogError("Error Updating Unit {Id}, {Error}", unit.Id, ex);
+                return false;
+            }
+        }
+
         public async Task<Boolean> Delete(Int32 id)
         {
             try

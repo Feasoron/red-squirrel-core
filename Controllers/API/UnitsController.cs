@@ -33,20 +33,26 @@ namespace RedSquirrel.Controllers.API
 
         // POST api/values
         [HttpPost]
-        public void Post(Unit value)
+        public ActionResult  Post(Unit value)
         {
+            var id = Service.AddUnit(value);
+            return new CreatedResult(id.ToString(), value);
         }
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, Unit value)
+        public ActionResult Put(int id, Unit value)
         {
+            var resp = Service.UpdateUnit(value);
+            return Ok();
         }
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public ActionResult Delete(int id)
         {
+            var resp = Service.Delete(id);
+            return Ok();
         }
     }
 }
