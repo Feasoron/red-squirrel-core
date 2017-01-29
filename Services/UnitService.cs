@@ -9,18 +9,14 @@ using Microsoft.Extensions.Logging;
 
 namespace RedSquirrel.Services
 {
-    public class UnitService
+    public class UnitService :DataBackedService
     {
-        
-        private ApplicationDbContext Context { get; }
         private ILogger<UnitService> Log { get; }
-        private readonly IMapper _mapper;
 
         public UnitService(ApplicationDbContext context,  ILogger<UnitService> log, IMapper mapper)
+            :base(context, mapper)
         {
-            Context = context;
             Log = log;
-            _mapper = mapper;
         }
 
         public List<Unit> GetAll()

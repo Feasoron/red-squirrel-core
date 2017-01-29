@@ -17,7 +17,7 @@ namespace RedSquirrel.Data
         public DbSet<Food> Foods { get; set; }
         public DbSet<FoodConversion> FoodConversions { get; set; }
         public DbSet<Location> Locations { get; set; }
-        public DbSet<Substitution> Substitutions { get; set; }
+       // public DbSet<Substitution> Substitutions { get; set; }
         public DbSet<UnitConversion> UnitConversions { get; set; }
         public DbSet<Inventory> Inventories { get; set; }
 

@@ -9,17 +9,14 @@ using Microsoft.Extensions.Logging;
 
 namespace RedSquirrel.Services
 {
-    public class LocationService
+    public class LocationService : DataBackedService
     {
-        private ApplicationDbContext Context { get; }
         private ILogger<LocationService> Log { get; }
-        private readonly IMapper _mapper;
 
         public LocationService(ApplicationDbContext context,  ILogger<LocationService> log, IMapper mapper)
+            :base(context, mapper)
         {
-            Context = context;
             Log = log;
-            _mapper = mapper;
         }
 
         public List<Location> GetAll()
@@ -72,7 +69,7 @@ namespace RedSquirrel.Services
             }            
         }
 
-        public async Task<Boolean> UpdateULocation(Location location)
+        public async Task<Boolean> UpdateLocation(Location location)
         {
             try
             {

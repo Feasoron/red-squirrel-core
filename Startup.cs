@@ -70,8 +70,10 @@ namespace RedSquirrel
                     // User settings
                     options.User.RequireUniqueEmail = true;
              });
-            
+
             services.AddTransient<UnitService>();
+            services.AddTransient<FoodService>();
+            services.AddTransient<LocationService>();
             services.AddSingleton<AutoMapperConfiguration>();
             services.AddSingleton(p => p.GetService<AutoMapperConfiguration>().CreateMapper());
 
