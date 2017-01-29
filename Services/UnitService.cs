@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using System.Linq;
 using RedSquirrel.Models;
 using AutoMapper;
@@ -51,6 +52,27 @@ namespace RedSquirrel.Services
             }
         }
 
+        public async Task<Boolean> Delete(Int32 id)
+        {
+            try
+            {
+                var unit = Context.Units.FirstOrDefault(u => u.Id == id);
+                
+                if(unit == null)
+                {
+                    // TODO replace with a Not Found Exception
+                    throw new Exception();
+                }
 
+                Context.Units.Remove(unit);
+                await Context.SaveChangesAsync();
+                return true;
+            }
+            catch(Exception ex)
+            {
+                Log.LogError("Error Deleting Unit {Id}, {Error}", id, ex);
+                return false;
+            }
+        }
     }
 }

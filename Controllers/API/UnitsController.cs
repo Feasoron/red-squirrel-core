@@ -33,13 +33,13 @@ namespace RedSquirrel.Controllers.API
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]Unit value)
+        public void Post(Unit value)
         {
         }
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]Unit value)
+        public void Put(int id, Unit value)
         {
         }
 
@@ -47,14 +47,6 @@ namespace RedSquirrel.Controllers.API
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            try
-            {
-            
-            }
-            catch(Exception ex)
-            {
-                
-            }
         }
     }
 }
