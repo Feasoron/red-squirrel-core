@@ -4,29 +4,35 @@ using RedSquirrel.Models;
 using AutoMapper;
 using ApplicationDbContext = RedSquirrel.Data.ApplicationDbContext;
 using System.Collections.Generic;
+using Microsoft.Extensions.Logging;
 
 namespace RedSquirrel.Services
 {
     public class UnitService
     {
         
-        private readonly ApplicationDbContext _context ;
+        private ApplicationDbContext Context { get; }
+        private ILogger<UnitService> Log { get; }
+        private readonly IMapper _mapper;
 
-        public UnitService(ApplicationDbContext mapper)
+        public UnitService(ApplicationDbContext context,  ILogger<UnitService> log, IMapper mapper)
         {
-            _context = mapper;
+            Context = context;
+            Log = log;
+            _mapper = mapper;
         }
 
         public List<Unit> GetAll()
         {
             try
             {
-                var all =  _context.Units.ToList();
+                var all =  Context.Units.ToList();
                 
-                return _context.Units.ToList().Select(unit => Mapper.Map<Unit>(unit)).ToList();
+                return Context.Units.ToList().Select(unit => _mapper.Map<Unit>(unit)).ToList();
             }
             catch(Exception ex)
             {
+                Log.LogError("Error Loading All Units, {Error}", ex);
                 return new List<Unit>();
             }
         }
@@ -35,11 +41,12 @@ namespace RedSquirrel.Services
         {
             try
             {
-                var unit = _context.Units.FirstOrDefault(u => u.Id == id);
-                return Mapper.Map<Unit>(unit);
+                var unit = Context.Units.FirstOrDefault(u => u.Id == id);
+                return _mapper.Map<Unit>(unit);
             }
             catch(Exception ex)
             {
+                Log.LogError("Error Loading Unit {Id}, {Error}", id, ex);
                 return null;
             }
         }

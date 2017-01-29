@@ -8,6 +8,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using RedSquirrel.Models;
 using RedSquirrel.Services;
+using Serilog;
+using AutoMapper;
 
 namespace RedSquirrel
 {
@@ -15,6 +17,12 @@ namespace RedSquirrel
     {
         public Startup(IHostingEnvironment env)
         {
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Verbose()
+                .Enrich.FromLogContext()
+                .WriteTo.RollingFile("log-{Date}.txt")
+                .CreateLogger();
+
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
@@ -64,6 +72,8 @@ namespace RedSquirrel
              });
             
             services.AddTransient<UnitService>();
+            services.AddSingleton<AutoMapperConfiguration>();
+            services.AddSingleton(p => p.GetService<AutoMapperConfiguration>().CreateMapper());
 
             var config = new AutoMapper.MapperConfiguration(cfg =>
             {
@@ -78,8 +88,8 @@ namespace RedSquirrel
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
-
+            loggerFactory.AddDebug();            
+            loggerFactory.AddSerilog();
 
             if(env.IsDevelopment())
             {
