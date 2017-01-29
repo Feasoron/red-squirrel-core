@@ -9,25 +9,23 @@ namespace RedSquirrel.Services
 {
     public class UnitService
     {
-        private readonly Lazy<ApplicationDbContext> _context = new Lazy<ApplicationDbContext>();
-        private ApplicationDbContext Context => _context.Value;
+        
+        private readonly ApplicationDbContext _context ;
 
-    //    private IMapper _mapper { get; }
-
-     //   public UnitService(IMapper mapper)
-     //   {
-    //        _mapper = mapper;
-     //   }
+        public UnitService(ApplicationDbContext mapper)
+        {
+            _context = mapper;
+        }
 
         public List<Unit> GetAll()
         {
             try
             {
-                var all =  Context.Units.ToList();
+                var all =  _context.Units.ToList();
                 
-                return Context.Units.ToList().Select(unit => Mapper.Map<Unit>(unit)).ToList();
+                return _context.Units.ToList().Select(unit => Mapper.Map<Unit>(unit)).ToList();
             }
-            catch
+            catch(Exception ex)
             {
                 return new List<Unit>();
             }
@@ -37,7 +35,7 @@ namespace RedSquirrel.Services
         {
             try
             {
-                var unit = Context.Units.FirstOrDefault(u => u.Id == id);
+                var unit = _context.Units.FirstOrDefault(u => u.Id == id);
                 return Mapper.Map<Unit>(unit);
             }
             catch(Exception ex)
