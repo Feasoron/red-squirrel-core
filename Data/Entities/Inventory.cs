@@ -1,8 +1,10 @@
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using RedSquirrel.Models;
 
 namespace RedSquirrel.Data.Entities
 {
+    [Table("Inventory")]
     public class Inventory
     {
         public Int32  Id { get; set;}

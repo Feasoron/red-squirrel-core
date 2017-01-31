@@ -1,7 +1,9 @@
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RedSquirrel.Data.Entities
 {
+    [Table("FoodConversion")]
     public class FoodConversion
     {
         public Int32  Id { get; set;}
