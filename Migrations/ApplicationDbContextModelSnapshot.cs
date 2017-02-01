@@ -131,7 +131,7 @@ namespace redsquirrel.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Foods");
+                    b.ToTable("Food");
                 });
 
             modelBuilder.Entity("RedSquirrel.Data.Entities.FoodConversion", b =>
