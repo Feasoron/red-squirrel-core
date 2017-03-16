@@ -76,6 +76,14 @@ namespace RedSquirrel
             services.AddTransient<LocationService>();
             services.AddSingleton<AutoMapperConfiguration>();
             services.AddSingleton(p => p.GetService<AutoMapperConfiguration>().CreateMapper());
+	    services.AddCors(options =>
+	    {
+		options.AddPolicy("CorsPolicy",
+		    builder => builder.AllowAnyOrigin()
+		    .AllowAnyMethod()
+		    .AllowAnyHeader()
+		    .AllowCredentials() );
+	    });
 
             var config = new AutoMapper.MapperConfiguration(cfg =>
             {
@@ -103,11 +111,14 @@ namespace RedSquirrel
             }
 
             app.UseIdentity();
+
             app.UseGoogleAuthentication(new GoogleOptions()
             {
                 ClientId = Configuration["Authentication:Google:ClientId"],
                 ClientSecret = Configuration["Authentication:Google:ClientSecret"]
             });
+app.UseCors("CorsPolicy");
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
