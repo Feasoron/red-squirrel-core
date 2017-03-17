@@ -4,4 +4,4 @@ obj
 .idea
 .vscode
 project.lock.json
-log*.txt
+**/log*.txt
