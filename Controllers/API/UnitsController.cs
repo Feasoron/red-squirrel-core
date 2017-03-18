@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using RedSquirrel.Models;
 using RedSquirrel.Services;
+using Microsoft.AspNetCore.Cors;  
 
 namespace RedSquirrel.Controllers.API
 {
-    [Route("api/[controller]")]
+    [EnableCors("AllowAll"), Route("api/[controller]")]
     public class UnitsController : Controller
     {
         protected UnitService Service { get; set; }

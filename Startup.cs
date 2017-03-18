@@ -11,6 +11,10 @@ using RedSquirrel.Services;
 using Serilog;
 using AutoMapper;
 
+using Microsoft.AspNetCore.Mvc.Cors.Internal;
+using Microsoft.AspNetCore.Mvc;
+
+
 namespace RedSquirrel
 {
     public class Startup
@@ -44,6 +48,8 @@ namespace RedSquirrel
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            
             services
                 .AddDbContext<ApplicationDbContext>();
             services.AddIdentity<ApplicationUser, IdentityRole>()
@@ -78,12 +84,17 @@ namespace RedSquirrel
             services.AddSingleton(p => p.GetService<AutoMapperConfiguration>().CreateMapper());
 	    services.AddCors(options =>
 	    {
-		options.AddPolicy("CorsPolicy",
-		    builder => builder.AllowAnyOrigin()
-		    .AllowAnyMethod()
+		options.AddPolicy("AllowAll",
+		    builder => builder
+                    .WithOrigins("http://localhost:4200")
+		    .WithMethods("GET", "PUT", "POST", "DELETE") 
 		    .AllowAnyHeader()
 		    .AllowCredentials() );
 	    });
+//            services.Configure<MvcOptions>(options =>
+//		{
+//    		options.Filters.Add(new CorsAuthorizationFilterFactory("AllowAll"));
+//		});
 
             var config = new AutoMapper.MapperConfiguration(cfg =>
             {
@@ -116,8 +127,7 @@ namespace RedSquirrel
             {
                 ClientId = Configuration["Authentication:Google:ClientId"],
                 ClientSecret = Configuration["Authentication:Google:ClientSecret"]
-            });
-app.UseCors("CorsPolicy");
+            });       
 
             app.UseMvc(routes =>
             {
@@ -125,7 +135,8 @@ app.UseCors("CorsPolicy");
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
-            app.UseStaticFiles();
+           app.UseCors("AllowAll");
+	    app.UseStaticFiles();
         }
     }
 }
