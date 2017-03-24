@@ -86,7 +86,7 @@ namespace RedSquirrel
 	    {
 		options.AddPolicy("AllowAll",
 		    builder => builder
-                    .WithOrigins("http://localhost:4200")
+                    .WithOrigins("http://localhost:4200", "http://app.redsquirrel.io")
 		    .WithMethods("GET", "PUT", "POST", "DELETE") 
 		    .AllowAnyHeader()
 		    .AllowCredentials() );
