@@ -81,16 +81,19 @@ namespace RedSquirrel
             services.AddTransient<FoodService>();
             services.AddTransient<LocationService>();
             services.AddSingleton<AutoMapperConfiguration>();
+
             services.AddSingleton(p => p.GetService<AutoMapperConfiguration>().CreateMapper());
-	    services.AddCors(options =>
-	    {
-		options.AddPolicy("AllowAll",
-		    builder => builder
-                    .WithOrigins("http://localhost:4200", "http://app.redsquirrel.io")
-		    .WithMethods("GET", "PUT", "POST", "DELETE") 
-		    .AllowAnyHeader()
-		    .AllowCredentials() );
-	    });
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll",
+                    builder => builder
+                            .WithOrigins("http://localhost:4200", 
+                            "http://app.redsquirrel.io")
+                    .WithMethods("GET", "PUT", "POST", "DELETE") 
+                    .AllowAnyHeader()
+                    .AllowCredentials());
+            });
+
 //            services.Configure<MvcOptions>(options =>
 //		{
 //    		options.Filters.Add(new CorsAuthorizationFilterFactory("AllowAll"));
@@ -129,14 +132,16 @@ namespace RedSquirrel
                 ClientSecret = Configuration["Authentication:Google:ClientSecret"]
             });       
 
+
+            app.UseCors("AllowAll");
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
-           app.UseCors("AllowAll");
-	    app.UseStaticFiles();
+
+	        app.UseStaticFiles();
         }
     }
 }

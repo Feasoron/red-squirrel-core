@@ -3,22 +3,17 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using RedSquirrel.Models;
 using RedSquirrel.Services;
-using Microsoft.AspNetCore.Cors;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.Extensions.Logging;
 
 namespace RedSquirrel.Controllers.API
 {
-    [EnableCors("AllowAll"), Route("api/[controller]")]
+    [Route("api/[controller]")]
     public class UnitsController : Controller
     {
         protected UnitService Service { get; set; }
-        private ILogger<UnitService> Log { get; }
 
-        public UnitsController(UnitService service, ILogger<UnitService> log)
+        public UnitsController(UnitService service)
         {
             Service = service;
-            Log = log;
         }
 
         // GET api/values
@@ -30,28 +25,27 @@ namespace RedSquirrel.Controllers.API
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public JsonResult Get(Int32 id)
+        public JsonResult Get(int id)
         {
            return new JsonResult(Service.GetById(id));
         }
 
         // POST api/values
         [HttpPost]
-        public ActionResult  Post(Unit value)
+        public ActionResult  Post([FromBody] Unit value)
         {
-            if (value == null)
+            if(String.IsNullOrEmpty(value.Name) || value.Id.HasValue) 
             {
                 return new BadRequestResult();
             }
 
-            Log.LogDebug("Adding new unit. Name:" + value.Name );
             var id = Service.AddUnit(value);
             return new CreatedResult(id.ToString(), value);
         }
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public ActionResult Put(Int32 id, Unit value)
+        public ActionResult Put(int id, [FromBody]Unit value)
         {
             var resp = Service.UpdateUnit(value);
             return Ok();
@@ -59,7 +53,7 @@ namespace RedSquirrel.Controllers.API
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public ActionResult Delete(Int32 id)
+        public ActionResult Delete(int id)
         {
             var resp = Service.Delete(id);
             return Ok();
