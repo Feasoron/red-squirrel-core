@@ -32,7 +32,7 @@ namespace RedSquirrel.Controllers.API
 
         // POST api/values
         [HttpPost]
-        public ActionResult  Post(Location value)
+        public ActionResult  Post([FromBody]Location value)
         {
             var id = Service.AddLocation(value);
             return new CreatedResult(id.ToString(), value);
@@ -40,7 +40,7 @@ namespace RedSquirrel.Controllers.API
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public ActionResult Put(Int32 id, Location value)
+        public ActionResult Put(Int32 id, [FromBody]Location value)
         {
             var resp = Service.UpdateLocation(value);
             return Ok();
