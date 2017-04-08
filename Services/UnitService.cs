@@ -52,7 +52,7 @@ namespace RedSquirrel.Services
         {
             try
             {
-                if(unit.Id != 0)
+                if(unit.Id != null && unit.Id != 0)
                 {
                     throw new InvalidOperationException();
                 }

@@ -9,10 +9,6 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using RedSquirrel.Models;
 using RedSquirrel.Services;
 using Serilog;
-using AutoMapper;
-
-using Microsoft.AspNetCore.Mvc.Cors.Internal;
-using Microsoft.AspNetCore.Mvc;
 
 
 namespace RedSquirrel
@@ -93,11 +89,6 @@ namespace RedSquirrel
                     .AllowAnyHeader()
                     .AllowCredentials());
             });
-
-//            services.Configure<MvcOptions>(options =>
-//		{
-//    		options.Filters.Add(new CorsAuthorizationFilterFactory("AllowAll"));
-//		});
 
             var config = new AutoMapper.MapperConfiguration(cfg =>
             {
