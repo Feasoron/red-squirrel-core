@@ -40,7 +40,7 @@ namespace RedSquirrel.Controllers.API
             }
 
             var id = Service.AddUnit(value);
-            return new CreatedResult(id.ToString(), value);
+            return new CreatedResult("Units", id);
         }
 
         // PUT api/values/5
