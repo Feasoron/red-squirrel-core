@@ -50,7 +50,7 @@ namespace RedSquirrel.Services
         {
             try
             {
-                if(location.Id != 0)
+                if(location.Id != null && location.Id != 0)
                 {
                     throw new InvalidOperationException();
                 }
