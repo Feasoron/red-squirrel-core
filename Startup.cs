@@ -93,6 +93,7 @@ namespace RedSquirrel
             var config = new AutoMapper.MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<Unit, RedSquirrel.Data.Entities.Unit>().ReverseMap();
+                 cfg.CreateMap<Location, RedSquirrel.Data.Entities.Location>().ReverseMap();
             });
 
             var mapper = config.CreateMapper();
