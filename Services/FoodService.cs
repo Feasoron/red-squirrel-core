@@ -52,11 +52,11 @@ namespace RedSquirrel.Services
         {
             try
             {
-                if(food.Id != 0)
+                if(food.Id.HasValue && food.Id != 0)
                 {
                     throw new InvalidOperationException();
                 }
-
+                
                 var ent = _mapper.Map<Data.Entities.Food>(food);
                 Context.Foods.Add(ent);
 
