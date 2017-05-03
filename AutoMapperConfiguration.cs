@@ -16,6 +16,7 @@ namespace RedSquirrel
         private static void CreateMappings(IMapperConfigurationExpression config)
         {
             config.CreateMap<Models.Unit, Data.Entities.Unit>().ReverseMap();
+            config.CreateMap<Models.Location, RedSquirrel.Data.Entities.Location>().ReverseMap();
         }
     }
 }

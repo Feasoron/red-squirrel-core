@@ -23,6 +23,7 @@ namespace RedSquirrel.Services
         {
             try
             {
+                var all =  Context.Locations.ToList();
                 return Context.Locations.ToList().Select(location => _mapper.Map<Location>(location)).ToList();
             }
             catch(Exception ex)
@@ -50,7 +51,7 @@ namespace RedSquirrel.Services
         {
             try
             {
-                if(location.Id != 0)
+                if(location.Id.HasValue && location.Id != 0)
                 {
                     throw new InvalidOperationException();
                 }
