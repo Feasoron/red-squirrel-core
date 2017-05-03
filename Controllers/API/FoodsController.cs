@@ -34,8 +34,13 @@ namespace RedSquirrel.Controllers.API
         [HttpPost]
         public ActionResult  Post([FromBody]Food value)
         {
+            if(String.IsNullOrEmpty(value.Name) || value.Id.HasValue) 
+            {
+                return new BadRequestResult();
+            }
+            
             var id = Service.AddFood(value);
-            return new CreatedResult(id.ToString(), value);
+            return new CreatedResult("Food", id);
         }
 
         // PUT api/values/5

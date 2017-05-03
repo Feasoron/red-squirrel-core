@@ -17,6 +17,7 @@ namespace RedSquirrel
         {
             config.CreateMap<Models.Unit, Data.Entities.Unit>().ReverseMap();
             config.CreateMap<Models.Location, RedSquirrel.Data.Entities.Location>().ReverseMap();
+            config.CreateMap<Models.Food, RedSquirrel.Data.Entities.Food>().ReverseMap();
         }
     }
 }
