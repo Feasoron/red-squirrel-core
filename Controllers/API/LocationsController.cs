@@ -34,6 +34,11 @@ namespace RedSquirrel.Controllers.API
         [HttpPost]
         public ActionResult  Post([FromBody]Location value)
         {
+            if(String.IsNullOrEmpty(value.Name) || value.Id.HasValue) 
+            {
+                return new BadRequestResult();
+            }
+            
             var id = Service.AddLocation(value);
             return new CreatedResult("Location", id);
         }

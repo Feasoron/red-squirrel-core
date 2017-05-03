@@ -51,7 +51,11 @@ namespace RedSquirrel.Services
         {
             try
             {
+<<<<<<< HEAD
                 if(location.Id.HasValue && location.Id != 0)
+=======
+                if(location.Id != null && location.Id != 0)
+>>>>>>> 5747c6af1647fea90aaf4ff5bcf59f26788d7ae2
                 {
                     throw new InvalidOperationException();
                 }

@@ -84,20 +84,12 @@ namespace RedSquirrel
                 options.AddPolicy("AllowAll",
                     builder => builder
                             .WithOrigins("http://localhost:4200", 
-                            "http://app.redsquirrel.io")
+                            "http://app.redsquirrel.io",
+                            "*")
                     .WithMethods("GET", "PUT", "POST", "DELETE") 
                     .AllowAnyHeader()
                     .AllowCredentials());
             });
-
-            var config = new AutoMapper.MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<Unit, RedSquirrel.Data.Entities.Unit>().ReverseMap();
-                 cfg.CreateMap<Location, RedSquirrel.Data.Entities.Location>().ReverseMap();
-            });
-
-            var mapper = config.CreateMapper();
-             
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
