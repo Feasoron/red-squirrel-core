@@ -1,9 +1,9 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.0.0
-MinimumVisualStudioVersion = 10.0.0.1
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "red-squirrel-core", "red-squirrel-core.xproj", "{F861C457-AB0C-4602-9CBF-2B2AF5B9DEDA}"
+# Visual Studio 15
+VisualStudioVersion = 15.0.26114.2
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "red-squirrel-core", "red-squirrel-core.csproj", "{F861C457-AB0C-4602-9CBF-2B2AF5B9DEDA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
