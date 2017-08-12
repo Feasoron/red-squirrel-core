@@ -3,7 +3,7 @@ dist: trusty
 sudo: required
 mono: none
 solution: red-squirrel-core.sln 
-dotnet: 1.0.0-preview2-003121
+dotnet: 1.0.4
 script:    # the following commands are just examples, use whatever your build process requires
   - dotnet restore
   - dotnet build
