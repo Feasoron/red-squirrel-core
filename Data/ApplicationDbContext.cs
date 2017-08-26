@@ -8,7 +8,7 @@ using RedSquirrel.Data.Entities;
 
 namespace RedSquirrel.Data
 {
-    public class ApplicationDbContext :  IdentityDbContext<User>
+    public class ApplicationDbContext :  DbContext
     {
         protected IHostingEnvironment Environment { get; set; }
         protected ILogger<ApplicationDbContext> Log { get; set; }
@@ -17,7 +17,6 @@ namespace RedSquirrel.Data
         public DbSet<Food> Foods { get; set; }
         public DbSet<FoodConversion> FoodConversions { get; set; }
         public DbSet<Location> Locations { get; set; }
-       // public DbSet<Substitution> Substitutions { get; set; }
         public DbSet<UnitConversion> UnitConversions { get; set; }
         public DbSet<Inventory> Inventories { get; set; }
 

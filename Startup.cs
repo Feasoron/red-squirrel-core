@@ -1,4 +1,7 @@
 using System;
+using System.Reflection;
+using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using RedSquirrel.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -32,7 +35,12 @@ namespace RedSquirrel
 //            if (env.IsDevelopment())
             {
                 // For more details on using the user secret store see http://go.microsoft.com/fwlink/?LinkID=532709
-                builder.AddUserSecrets();
+                
+                var appAssembly = Assembly.Load(new AssemblyName(env.ApplicationName));
+                if (appAssembly != null)
+                {
+                    builder.AddUserSecrets(appAssembly, optional: true);
+                }
             }
 
             Configuration = builder.Build();
@@ -44,35 +52,8 @@ namespace RedSquirrel
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-
+            services.AddDbContext<ApplicationDbContext>();
             
-            services
-                .AddDbContext<ApplicationDbContext>();
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders();
-            services.Configure<IdentityOptions>(options =>
-                {
-                    // Password settings
-                    options.Password.RequireDigit = true;
-                    options.Password.RequiredLength = 8;
-                    options.Password.RequireNonAlphanumeric = false;
-                    options.Password.RequireUppercase = true;
-                    options.Password.RequireLowercase = false;
-                    
-                    // Lockout settings
-                    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
-                    options.Lockout.MaxFailedAccessAttempts = 10;
-                    
-                    // Cookie settings
-                    options.Cookies.ApplicationCookie.ExpireTimeSpan = TimeSpan.FromDays(150);
-                    options.Cookies.ApplicationCookie.LoginPath = "/Account/LogIn";
-                    options.Cookies.ApplicationCookie.LogoutPath = "/Account/LogOff";
-                    
-                    // User settings
-                    options.User.RequireUniqueEmail = true;
-             });
-
             services.AddTransient<UnitService>();
             services.AddTransient<FoodService>();
             services.AddTransient<LocationService>();
@@ -89,6 +70,16 @@ namespace RedSquirrel
                     .WithMethods("GET", "PUT", "POST", "DELETE") 
                     .AllowAnyHeader()
                     .AllowCredentials());
+            });
+
+            services.AddAuthentication(options =>
+                {
+                    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+            .AddJwtBearer(options =>
+            {
+                options.Audience = Configuration["auth0:clientId"];
+                options.Authority =$"https://{Configuration["auth0:domain"]}/";
             });
         }
 
@@ -107,15 +98,8 @@ namespace RedSquirrel
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-
-            app.UseIdentity();
-
-            app.UseGoogleAuthentication(new GoogleOptions()
-            {
-                ClientId = Configuration["Authentication:Google:ClientId"],
-                ClientSecret = Configuration["Authentication:Google:ClientSecret"]
-            });       
-
+            
+            app.UseAuthentication();
 
             app.UseCors("AllowAll");
             app.UseMvc(routes =>
