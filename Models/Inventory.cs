@@ -8,6 +8,6 @@ namespace RedSquirrel.Models
         public virtual Food Food { get; set; }
         public virtual Location Location { get; set; }
         public Double Amount { get; set; }
-        public ApplicationUser User { get; set; }
+        public User User { get; set; }
     }
 }

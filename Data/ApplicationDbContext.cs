@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using User = RedSquirrel.Models.ApplicationUser;
 using RedSquirrel.Data.Entities;
 
 namespace RedSquirrel.Data
