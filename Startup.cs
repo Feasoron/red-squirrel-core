@@ -51,6 +51,8 @@ namespace RedSquirrel
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var domain = $"https://{Configuration["Auth0:Domain"]}/";
+            
             services.AddMvc();
             services.AddDbContext<ApplicationDbContext>();
             
@@ -75,12 +77,11 @@ namespace RedSquirrel
             services.AddAuthentication(options =>
                 {
                     options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-                })
-            .AddJwtBearer(options =>
-            {
-                options.Audience = Configuration["auth0:clientId"];
-                options.Authority =$"https://{Configuration["auth0:domain"]}/";
-            });
+                }).AddJwtBearer(options =>
+                {
+                    options.Authority = domain;
+                    options.Audience = Configuration["Auth0:ApiIdentifier"];
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

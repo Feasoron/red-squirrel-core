@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RedSquirrel.Models;
 using RedSquirrel.Services;
@@ -7,6 +8,7 @@ using RedSquirrel.Services;
 namespace RedSquirrel.Controllers.API
 {
     [Route("api/[controller]")]
+    [Authorize]
     public class UnitsController : Controller
     {
         protected UnitService Service { get; set; }
