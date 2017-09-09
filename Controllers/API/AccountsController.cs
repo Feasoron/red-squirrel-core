@@ -14,8 +14,7 @@ namespace RedSquirrel.Controllers.API
         // GET
         public IActionResult LogOn()
         {
-            return
-            View();
+            return null;
         }
     }
 }
