@@ -11,7 +11,7 @@ namespace RedSquirrel.Controllers.API
     [Authorize]
     public class FoodsController : Controller
     {
-        protected FoodService Service { get; set; }
+        private FoodService Service { get; set; }
 
         public FoodsController(FoodService service)
         {

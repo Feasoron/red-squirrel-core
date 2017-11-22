@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RedSquirrel.Models;
 using RedSquirrel.Services;
@@ -7,9 +8,10 @@ using RedSquirrel.Services;
 namespace RedSquirrel.Controllers.API
 {
     [Route("api/[controller]")]
+    [Authorize]
     public class LocationsController : Controller
     {
-        protected LocationService Service { get; set; }
+        private LocationService Service { get; }
 
         public LocationsController(LocationService service)
         {
