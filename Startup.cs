@@ -81,7 +81,7 @@ namespace RedSquirrel
                 }).AddJwtBearer(options =>
                 {
                     options.Authority = "https://redsquirrel.auth0.com/";
-                    options.Audience = "https://redsquirrel.io";
+                    options.Audience = "gvI7avZ3InJBylWShAhWvox9GLkgCPC5";
                 });
         }
 
