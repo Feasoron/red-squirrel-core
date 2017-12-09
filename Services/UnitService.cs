@@ -25,7 +25,7 @@ namespace RedSquirrel.Services
             {
                 var all =  Context.Units.ToList();
                 
-                return Context.Units.ToList().Select(unit => _mapper.Map<Unit>(unit)).ToList();
+                return Context.Units.ToList().Select(unit => Mapper.Map<Unit>(unit)).ToList();
             }
             catch(Exception ex)
             {
@@ -39,7 +39,7 @@ namespace RedSquirrel.Services
             try
             {
                 var unit = Context.Units.FirstOrDefault(u => u.Id == id);
-                return _mapper.Map<Unit>(unit);
+                return Mapper.Map<Unit>(unit);
             }
             catch(Exception ex)
             {
@@ -57,7 +57,7 @@ namespace RedSquirrel.Services
                     throw new InvalidOperationException();
                 }
 
-                var ent = _mapper.Map<Data.Entities.Unit>(unit);
+                var ent = Mapper.Map<Data.Entities.Unit>(unit);
                 Context.Units.Add(ent);
 
                 await Context.SaveChangesAsync();

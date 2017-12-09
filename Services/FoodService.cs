@@ -25,7 +25,7 @@ namespace RedSquirrel.Services
             {
                 var all =  Context.Foods.ToList();
                 
-                return Context.Foods.ToList().Select(food => _mapper.Map<Food>(food)).ToList();
+                return Context.Foods.ToList().Select(food => Mapper.Map<Food>(food)).ToList();
             }
             catch(Exception ex)
             {
@@ -39,7 +39,7 @@ namespace RedSquirrel.Services
             try
             {
                 var food = Context.Foods.FirstOrDefault(f => f.Id == id);
-                return _mapper.Map<Food>(food);
+                return Mapper.Map<Food>(food);
             }
             catch(Exception ex)
             {
@@ -57,7 +57,7 @@ namespace RedSquirrel.Services
                     throw new InvalidOperationException();
                 }
                 
-                var ent = _mapper.Map<Data.Entities.Food>(food);
+                var ent = Mapper.Map<Data.Entities.Food>(food);
                 Context.Foods.Add(ent);
 
                 await Context.SaveChangesAsync();
