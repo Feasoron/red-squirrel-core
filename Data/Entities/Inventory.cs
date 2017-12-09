@@ -7,7 +7,8 @@ namespace RedSquirrel.Data.Entities
     [Table("Inventory")]
     public class Inventory
     {
-        public Int32  Id { get; set;}
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Int64  Id { get; set;}
         public virtual User User { get; set; }
         public virtual Food Food { get; set; }
         public virtual Location Location { get; set; }

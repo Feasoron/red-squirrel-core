@@ -6,7 +6,8 @@ namespace RedSquirrel.Data.Entities
     [Table("Unit")]
     public class Unit
     {
-        public Int32 Id { get; set;}
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Int64 Id { get; set;}
         public String Name { get; set; }
     }
 }

@@ -47,7 +47,7 @@ namespace RedSquirrel.Services
             }
         }
 
-        public async Task<Int32> AddLocation(Location location)
+        public async Task<Int64> AddLocation(Location location)
         {
             try
             {

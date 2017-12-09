@@ -9,27 +9,13 @@ namespace RedSquirrel.Data
 {
     public class ApplicationDbContext :  DbContext
     {
-        protected IHostingEnvironment Environment { get; set; }
-        protected ILogger<ApplicationDbContext> Log { get; set; }
-        
         public DbSet<Unit> Units { get; set; }
         public DbSet<Food> Foods { get; set; }
-        public DbSet<FoodConversion> FoodConversions { get; set; }
+        //public DbSet<FoodConversion> FoodConversions { get; set; }
         public DbSet<Location> Locations { get; set; }
-        public DbSet<UnitConversion> UnitConversions { get; set; }
-        public DbSet<Inventory> Inventories { get; set; }
-
-        public ApplicationDbContext(IHostingEnvironment env, ILogger<ApplicationDbContext> log)
-        {    
-            Environment = env;
-            Log = log;
-        }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            var path = Environment.ContentRootPath + "/squirrel.db";
-            Log.LogDebug("Opeing Database at :" + path);
-            optionsBuilder.UseSqlite("Filename=" + path );
-        }
+        //public DbSet<UnitConversion> UnitConversions { get; set; }
+        //public DbSet<Inventory> Inventories { get; set; }
+        
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
     }
 }

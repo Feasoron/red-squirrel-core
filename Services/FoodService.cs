@@ -48,7 +48,7 @@ namespace RedSquirrel.Services
             }
         }
 
-        public async Task<Int32> AddFood(Food food)        
+        public async Task<Int64> AddFood(Food food)        
         {
             try
             {

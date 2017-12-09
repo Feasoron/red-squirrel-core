@@ -48,7 +48,7 @@ namespace RedSquirrel.Services
             }
         }
 
-        public async Task<Int32> AddUnit(Unit unit)        
+        public async Task<Int64> AddUnit(Unit unit)        
         {
             try
             {
@@ -106,9 +106,12 @@ namespace RedSquirrel.Services
                     // TODO replace with a Not Found Exception
                     throw new Exception();
                 }
-
+                
+                Log.LogDebug("About to remove unit " + id);
                 Context.Units.Remove(unit);
                 await Context.SaveChangesAsync();
+                Log.LogDebug("Removed unit " + id);
+                
                 return true;
             }
             catch(Exception ex)

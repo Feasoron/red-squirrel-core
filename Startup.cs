@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using RedSquirrel.Models;
 using RedSquirrel.Services;
 using Serilog;
@@ -32,14 +33,14 @@ namespace RedSquirrel
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
 
-//            if (env.IsDevelopment())
+            if (env.IsDevelopment())
             {
                 // For more details on using the user secret store see http://go.microsoft.com/fwlink/?LinkID=532709
                 
                 var appAssembly = Assembly.Load(new AssemblyName(env.ApplicationName));
                 if (appAssembly != null)
                 {
-                    builder.AddUserSecrets(appAssembly, optional: true);
+                    builder.AddUserSecrets<Startup>();
                 }
             }
 
@@ -54,7 +55,6 @@ namespace RedSquirrel
             var domain = $"https://redsquirrel.auth0.com/";
             
             services.AddMvc();
-            services.AddDbContext<ApplicationDbContext>();
             
             services.AddTransient<UnitService>();
             services.AddTransient<FoodService>();
@@ -83,6 +83,9 @@ namespace RedSquirrel
                     options.Authority = "https://redsquirrel.auth0.com/";
                     options.Audience = "gvI7avZ3InJBylWShAhWvox9GLkgCPC5";
                 });
+            
+            services.AddEntityFrameworkNpgsql().AddDbContext<ApplicationDbContext>(options => 
+                options.UseNpgsql(Configuration["ConnectionString"]));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
