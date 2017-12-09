@@ -2,7 +2,7 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-round)](http://makeapullrequest.com)
 ![](https://reposs.herokuapp.com/?path=Feasoron/red-squirrel-core)
 
-*This application is still under sporadic active development. Not all described features and functionality are implemented at this time.* 
+*This application is still under active development. Not all described features and functionality are implemented at this time.* 
 
 What is Red Squirrel
 --------------------
@@ -24,4 +24,4 @@ Bugs, feature requests and pull requests are all welcome, as long as you follow 
 
 See Also
 --------
-We have and Angular client!  [Red Squirrel Web](hhttps://github.com/Feasoron/red-squirrel-web)
+We have an Angular client!  [Red Squirrel Web](hhttps://github.com/Feasoron/red-squirrel-web)
