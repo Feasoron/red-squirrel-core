@@ -24,7 +24,7 @@ namespace RedSquirrel.Services
             try
             {
                 var all =  Context.Locations.ToList();
-                return Context.Locations.ToList().Select(location => _mapper.Map<Location>(location)).ToList();
+                return Context.Locations.ToList().Select(location => Mapper.Map<Location>(location)).ToList();
             }
             catch(Exception ex)
             {
@@ -38,7 +38,7 @@ namespace RedSquirrel.Services
             try
             {
                 var location = Context.Locations.FirstOrDefault(loc => loc.Id == id);
-                return _mapper.Map<Location>(location);
+                return Mapper.Map<Location>(location);
             }
             catch(Exception ex)
             {
@@ -56,7 +56,7 @@ namespace RedSquirrel.Services
                     throw new InvalidOperationException();
                 }
 
-                var ent = _mapper.Map<Data.Entities.Location>(location);
+                var ent = Mapper.Map<Data.Entities.Location>(location);
                 Context.Locations.Add(ent);
 
                 await Context.SaveChangesAsync();

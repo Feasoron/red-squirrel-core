@@ -2,7 +2,7 @@ using System;
 
 namespace RedSquirrel.Models
 {
-    public class UnitConversion
+    public class UnitConversion : OwnedObject
     {
         public Int32?  Id { get; set;}
         public Unit FirstUnit  { get; set; }
