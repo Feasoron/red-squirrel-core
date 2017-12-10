@@ -12,7 +12,7 @@ namespace RedSquirrel.Controllers.API
     public class AccountsController : Controller
     {
         // GET
-        public IActionResult LogOn()
+        public IActionResult Get()
         {
             return null;
         }
