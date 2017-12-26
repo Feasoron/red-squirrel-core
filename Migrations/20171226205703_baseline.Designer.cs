@@ -4,24 +4,26 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.EntityFrameworkCore.Storage.Internal;
 using RedSquirrel.Data;
 using System;
 
-namespace redsquirrel.Migrations
+namespace redsquirrelcore.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171203171730_owners")]
-    partial class owners
+    [Migration("20171226205703_baseline")]
+    partial class baseline
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
                 .HasAnnotation("ProductVersion", "2.0.0-rtm-26452");
 
             modelBuilder.Entity("RedSquirrel.Data.Entities.Food", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Name");
@@ -33,16 +35,16 @@ namespace redsquirrel.Migrations
 
             modelBuilder.Entity("RedSquirrel.Data.Entities.FoodConversion", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("FirstUnitId");
+                    b.Property<long?>("FirstUnitId");
 
-                    b.Property<int?>("FoodId");
+                    b.Property<long?>("FoodId");
 
                     b.Property<double>("Ratio");
 
-                    b.Property<int?>("SecondUnitId");
+                    b.Property<long?>("SecondUnitId");
 
                     b.HasKey("Id");
 
@@ -57,16 +59,14 @@ namespace redsquirrel.Migrations
 
             modelBuilder.Entity("RedSquirrel.Data.Entities.Inventory", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<double>("Amount");
 
-                    b.Property<int?>("FoodId");
+                    b.Property<long?>("FoodId");
 
-                    b.Property<int?>("LocationId");
-
-                    b.Property<long?>("UserId");
+                    b.Property<long?>("LocationId");
 
                     b.HasKey("Id");
 
@@ -74,14 +74,12 @@ namespace redsquirrel.Migrations
 
                     b.HasIndex("LocationId");
 
-                    b.HasIndex("UserId");
-
                     b.ToTable("Inventory");
                 });
 
             modelBuilder.Entity("RedSquirrel.Data.Entities.Location", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Name");
@@ -93,7 +91,7 @@ namespace redsquirrel.Migrations
 
             modelBuilder.Entity("RedSquirrel.Data.Entities.Unit", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Name");
@@ -105,14 +103,14 @@ namespace redsquirrel.Migrations
 
             modelBuilder.Entity("RedSquirrel.Data.Entities.UnitConversion", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("FirstUnitId");
+                    b.Property<long?>("FirstUnitId");
 
                     b.Property<double>("Ratio");
 
-                    b.Property<int?>("SecondUnitId");
+                    b.Property<long?>("SecondUnitId");
 
                     b.HasKey("Id");
 
@@ -123,14 +121,16 @@ namespace redsquirrel.Migrations
                     b.ToTable("UnitConversion");
                 });
 
-            modelBuilder.Entity("RedSquirrel.Models.User", b =>
+            modelBuilder.Entity("RedSquirrel.Data.Entities.User", b =>
                 {
                     b.Property<long>("UserId")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("ExternalUserId");
+
                     b.HasKey("UserId");
 
-                    b.ToTable("User");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("RedSquirrel.Data.Entities.FoodConversion", b =>
@@ -157,10 +157,6 @@ namespace redsquirrel.Migrations
                     b.HasOne("RedSquirrel.Data.Entities.Location", "Location")
                         .WithMany()
                         .HasForeignKey("LocationId");
-
-                    b.HasOne("RedSquirrel.Models.User", "User")
-                        .WithMany("Inventories")
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("RedSquirrel.Data.Entities.UnitConversion", b =>

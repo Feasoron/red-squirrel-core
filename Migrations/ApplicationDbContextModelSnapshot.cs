@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.Internal;
 using RedSquirrel.Data;
 using System;
 
-namespace redsquirrel.Migrations
+namespace redsquirrelcore.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -30,6 +30,50 @@ namespace redsquirrel.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Food");
+                });
+
+            modelBuilder.Entity("RedSquirrel.Data.Entities.FoodConversion", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<long?>("FirstUnitId");
+
+                    b.Property<long?>("FoodId");
+
+                    b.Property<double>("Ratio");
+
+                    b.Property<long?>("SecondUnitId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FirstUnitId");
+
+                    b.HasIndex("FoodId");
+
+                    b.HasIndex("SecondUnitId");
+
+                    b.ToTable("FoodConversion");
+                });
+
+            modelBuilder.Entity("RedSquirrel.Data.Entities.Inventory", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<double>("Amount");
+
+                    b.Property<long?>("FoodId");
+
+                    b.Property<long?>("LocationId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FoodId");
+
+                    b.HasIndex("LocationId");
+
+                    b.ToTable("Inventory");
                 });
 
             modelBuilder.Entity("RedSquirrel.Data.Entities.Location", b =>
@@ -54,6 +98,75 @@ namespace redsquirrel.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Unit");
+                });
+
+            modelBuilder.Entity("RedSquirrel.Data.Entities.UnitConversion", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<long?>("FirstUnitId");
+
+                    b.Property<double>("Ratio");
+
+                    b.Property<long?>("SecondUnitId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FirstUnitId");
+
+                    b.HasIndex("SecondUnitId");
+
+                    b.ToTable("UnitConversion");
+                });
+
+            modelBuilder.Entity("RedSquirrel.Data.Entities.User", b =>
+                {
+                    b.Property<long>("UserId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ExternalUserId");
+
+                    b.HasKey("UserId");
+
+                    b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("RedSquirrel.Data.Entities.FoodConversion", b =>
+                {
+                    b.HasOne("RedSquirrel.Data.Entities.Unit", "FirstUnit")
+                        .WithMany()
+                        .HasForeignKey("FirstUnitId");
+
+                    b.HasOne("RedSquirrel.Data.Entities.Food", "Food")
+                        .WithMany()
+                        .HasForeignKey("FoodId");
+
+                    b.HasOne("RedSquirrel.Data.Entities.Unit", "SecondUnit")
+                        .WithMany()
+                        .HasForeignKey("SecondUnitId");
+                });
+
+            modelBuilder.Entity("RedSquirrel.Data.Entities.Inventory", b =>
+                {
+                    b.HasOne("RedSquirrel.Data.Entities.Food", "Food")
+                        .WithMany()
+                        .HasForeignKey("FoodId");
+
+                    b.HasOne("RedSquirrel.Data.Entities.Location", "Location")
+                        .WithMany()
+                        .HasForeignKey("LocationId");
+                });
+
+            modelBuilder.Entity("RedSquirrel.Data.Entities.UnitConversion", b =>
+                {
+                    b.HasOne("RedSquirrel.Data.Entities.Unit", "FirstUnit")
+                        .WithMany()
+                        .HasForeignKey("FirstUnitId");
+
+                    b.HasOne("RedSquirrel.Data.Entities.Unit", "SecondUnit")
+                        .WithMany()
+                        .HasForeignKey("SecondUnitId");
                 });
 #pragma warning restore 612, 618
         }

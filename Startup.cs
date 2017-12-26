@@ -84,6 +84,8 @@ namespace RedSquirrel
                     options.Audience = "gvI7avZ3InJBylWShAhWvox9GLkgCPC5";
                 });
             
+            var x = Configuration["ConnectionString"];
+            
             services.AddEntityFrameworkNpgsql().AddDbContext<ApplicationDbContext>(options => 
                 options.UseNpgsql(Configuration["ConnectionString"]));
         }
