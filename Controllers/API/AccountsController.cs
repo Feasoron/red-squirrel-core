@@ -1,52 +1,72 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
+using System.Security.Cryptography.X509Certificates;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RedSquirrel.Data;
+using RedSquirrel.Data.Entities;
 using RedSquirrel.Models;
 using RedSquirrel.Services;
+using User = RedSquirrel.Data.Entities.User;
 
 namespace RedSquirrel.Controllers.API
 {
-    
-    
-    
     [Route("api/[controller]")]
     [Authorize]
     public class AccountsController : Controller
     {
-        private ApplicationDbContext _applicationDbContext { get; set; }
+        private UserService UserService { get; set; }
         
-        public AccountsController(ApplicationDbContext context)
+        public AccountsController(UserService userService)
         {
-            _applicationDbContext = context;
+            UserService = userService;
         }
-
-        public String claimType { get; set; } = "nameidentifier";
         
         // GET
         public IActionResult Get()
         {
-            var id = User.Claims.FirstOrDefault(c => c.Type == claimType);
-
-            if (id == null)
+            var externalId = GetExternalId();
+            
+            if (externalId == null)
             {
                 return BadRequest();
             }
-            
-          //  var user = _applicationDbContext.Users.Fir
-            
-            if (id != null)
+
+            var user = new Models.User
             {
-                
-                
-                return Ok(id);
+                Email = GetClaimValue("email"),
+                Name = GetClaimValue("name"),
+                ExternalUserId = externalId
+            };
+
+            var userId = UserService.GetOrCreateUserId(user);
+
+            return Ok(userId);
+        }
+
+        private String GetExternalId()
+        {
+            // Sometimes we're getting a nameidentifier claim, sometimes a sub.
+            // Until we get to the bottom of why, moving forward with this gross workaround
+            var externalId = GetClaimValue("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier") ??
+                             GetClaimValue("sub");
+            
+            return externalId;
+        }
+        
+        private String GetClaimValue(String claimType)
+        {
+            try
+            {
+                return User.Claims.FirstOrDefault(claim => claim.Type == claimType)?.Value;
             }
-            
-            
-            
-            return Ok();
+            catch
+            {
+                return null;
+            }
         }
     }
 }

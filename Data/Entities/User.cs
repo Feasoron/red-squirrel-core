@@ -10,5 +10,7 @@ namespace RedSquirrel.Data.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Int64 UserId { get; set; }
         public String ExternalUserId { get; set; }
+        public String Name { get; set; }
+        public String Email { get; set; }
     }
 }
