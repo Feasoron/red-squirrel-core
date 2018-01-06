@@ -2,7 +2,7 @@ using System;
 
 namespace RedSquirrel.Models
 {
-    public class Inventory
+    public class Inventory : OwnedObject
     {
         public Int32?  Id { get; set;}
         public virtual Food Food { get; set; }

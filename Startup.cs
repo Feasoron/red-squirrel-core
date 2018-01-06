@@ -59,6 +59,7 @@ namespace RedSquirrel
             services.AddTransient<UnitService>();
             services.AddTransient<FoodService>();
             services.AddTransient<LocationService>();
+            services.AddTransient<UserService>();
             services.AddSingleton<AutoMapperConfiguration>();
 
             services.AddSingleton(p => p.GetService<AutoMapperConfiguration>().CreateMapper());
@@ -83,6 +84,8 @@ namespace RedSquirrel
                     options.Authority = "https://redsquirrel.auth0.com/";
                     options.Audience = "gvI7avZ3InJBylWShAhWvox9GLkgCPC5";
                 });
+            
+            var x = Configuration["ConnectionString"];
             
             services.AddEntityFrameworkNpgsql().AddDbContext<ApplicationDbContext>(options => 
                 options.UseNpgsql(Configuration["ConnectionString"]));

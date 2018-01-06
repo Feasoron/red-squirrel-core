@@ -11,9 +11,10 @@ using System;
 namespace redsquirrelcore.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171226205703_baseline")]
+    partial class baseline
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -125,11 +126,7 @@ namespace redsquirrelcore.Migrations
                     b.Property<long>("UserId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Email");
-
                     b.Property<string>("ExternalUserId");
-
-                    b.Property<string>("Name");
 
                     b.HasKey("UserId");
 
