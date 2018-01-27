@@ -19,13 +19,17 @@ namespace RedSquirrel.Services
             Log = log;
         }
 
-        public List<Unit> GetAll()
+        public List<Unit> GetAll(Int64 userId)
         {
             try
             {
                 var all =  Context.Units.ToList();
                 
-                return Context.Units.ToList().Select(unit => Mapper.Map<Unit>(unit)).ToList();
+                return Context.Units
+                     .Where(x => x.Owner == null || x.Owner.UserId == userId )
+                    .ToList()
+                    .Select(unit => Mapper.Map<Unit>(unit))
+                    .ToList();
             }
             catch(Exception ex)
             {
@@ -48,7 +52,7 @@ namespace RedSquirrel.Services
             }
         }
 
-        public async Task<Int64> AddUnit(Unit unit)        
+        public async Task<Int64> AddUnit(Unit unit, Int64 userId)        
         {
             try
             {
@@ -58,6 +62,10 @@ namespace RedSquirrel.Services
                 }
 
                 var ent = Mapper.Map<Data.Entities.Unit>(unit);
+                
+                var user = Context.Users.First(u => u.UserId == userId);
+                ent.Owner = user;
+                
                 Context.Units.Add(ent);
 
                 await Context.SaveChangesAsync();

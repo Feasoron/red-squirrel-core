@@ -19,12 +19,13 @@ namespace RedSquirrel.Services
             Log = log;
         }
 
-        public List<Location> GetAll()
+        public List<Location> GetAll(Int64 userId)
         {
             try
             {
-                var all =  Context.Locations.ToList();
-                return Context.Locations.ToList().Select(location => Mapper.Map<Location>(location)).ToList();
+                var all =  Context.Locations
+                    .Where(x => x.Owner == null || x.Owner.UserId == userId ).ToList();
+                return all.Select(location => Mapper.Map<Location>(location)).ToList();
             }
             catch(Exception ex)
             {
@@ -47,7 +48,7 @@ namespace RedSquirrel.Services
             }
         }
 
-        public async Task<Int64> AddLocation(Location location)
+        public async Task<Int64> AddLocation(Location location, Int64 userId)
         {
             try
             {
@@ -57,6 +58,10 @@ namespace RedSquirrel.Services
                 }
 
                 var ent = Mapper.Map<Data.Entities.Location>(location);
+
+                var user = Context.Users.First(u => u.UserId == userId);
+                ent.Owner = user;
+                
                 Context.Locations.Add(ent);
 
                 await Context.SaveChangesAsync();

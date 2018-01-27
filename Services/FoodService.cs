@@ -19,13 +19,14 @@ namespace RedSquirrel.Services
             Log = log;
         }
 
-        public List<Food> GetAll()
+        public List<Food> GetAll(Int64 userId)
         {
             try
             {
-                var all =  Context.Foods.ToList();
+                var all =  Context.Foods
+                    .Where(x => x.Owner == null || x.Owner.UserId == userId ).ToList();
                 
-                return Context.Foods.ToList().Select(food => Mapper.Map<Food>(food)).ToList();
+                return all.Select(food => Mapper.Map<Food>(food)).ToList();
             }
             catch(Exception ex)
             {
@@ -48,7 +49,7 @@ namespace RedSquirrel.Services
             }
         }
 
-        public async Task<Int64> AddFood(Food food)        
+        public async Task<Int64> AddFood(Food food, Int64 userId)        
         {
             try
             {
@@ -58,6 +59,10 @@ namespace RedSquirrel.Services
                 }
                 
                 var ent = Mapper.Map<Data.Entities.Food>(food);
+                
+                var user = Context.Users.First(u => u.UserId == userId);
+                ent.Owner = user;
+                
                 Context.Foods.Add(ent);
 
                 await Context.SaveChangesAsync();

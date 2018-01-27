@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RedSquirrel.Models;
@@ -9,7 +10,7 @@ namespace RedSquirrel.Controllers.API
 {
     [Route("api/[controller]")]
     [Authorize]
-    public class LocationsController : Controller
+    public class LocationsController : BaseController
     {
         private LocationService Service { get; }
 
@@ -22,7 +23,7 @@ namespace RedSquirrel.Controllers.API
         [HttpGet]
         public IEnumerable<Object> Get()
         {
-            return Service.GetAll();
+            return Service.GetAll(CurrentUserId);
         }
 
         // GET api/values/5
@@ -41,7 +42,7 @@ namespace RedSquirrel.Controllers.API
                 return new BadRequestResult();
             }
             
-            var id = Service.AddLocation(value);
+            var id = Service.AddLocation(value, CurrentUserId);
             return new CreatedResult("Location", id);
         }
 
@@ -55,10 +56,16 @@ namespace RedSquirrel.Controllers.API
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public ActionResult Delete(Int32 id)
+        public async Task<ActionResult> Delete(Int32 id)
         {
-            var resp = Service.Delete(id);
-            return Ok();
+            var resp = await Service.Delete(id);
+
+            if (resp)
+            {
+                return Ok(id);
+            }
+
+            return BadRequest(id);
         }
     }
 }
