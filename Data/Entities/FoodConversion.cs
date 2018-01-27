@@ -12,5 +12,7 @@ namespace RedSquirrel.Data.Entities
         public virtual Unit FirstUnit  { get; set; }
         public virtual Unit SecondUnit  { get; set; }
         public virtual Double Ratio  { get; set; }
+        
+        public virtual User Owner { get; set; }
     }
 }
