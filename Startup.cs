@@ -75,6 +75,14 @@ namespace RedSquirrel
                     .AllowCredentials());
             });
 
+            services.AddEntityFrameworkNpgsql().AddDbContext<ApplicationDbContext>(options => 
+                options.UseNpgsql(Configuration["ConnectionString"]));
+            
+            // create a temporary provider. This enables us to still inject the context properly
+            // into the User Service so that we can resolve user ids from external ids when 
+            // working with the JWT.
+            var tempProvider = services.BuildServiceProvider();             
+            
             services.AddAuthentication(options =>
                 {
                     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -83,12 +91,8 @@ namespace RedSquirrel
                 {
                     options.Authority = "https://redsquirrel.auth0.com/";
                     options.Audience = "gvI7avZ3InJBylWShAhWvox9GLkgCPC5";
+                    options.Events = new AuthEvent(tempProvider.GetService<UserService>());
                 });
-            
-            var x = Configuration["ConnectionString"];
-            
-            services.AddEntityFrameworkNpgsql().AddDbContext<ApplicationDbContext>(options => 
-                options.UseNpgsql(Configuration["ConnectionString"]));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

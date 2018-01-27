@@ -9,5 +9,7 @@ namespace RedSquirrel.Data.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Int64  Id { get; set;}
         public String Name { get; set; }
+        
+        public virtual User Owner { get; set; }
     }
 }

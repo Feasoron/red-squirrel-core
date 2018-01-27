@@ -11,9 +11,10 @@ using System;
 namespace redsquirrelcore.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180127185224_location-owner")]
+    partial class locationowner
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,11 +28,7 @@ namespace redsquirrelcore.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<long?>("OwnerUserId");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("OwnerUserId");
 
                     b.ToTable("Food");
                 });
@@ -45,8 +42,6 @@ namespace redsquirrelcore.Migrations
 
                     b.Property<long?>("FoodId");
 
-                    b.Property<long?>("OwnerUserId");
-
                     b.Property<double>("Ratio");
 
                     b.Property<long?>("SecondUnitId");
@@ -56,8 +51,6 @@ namespace redsquirrelcore.Migrations
                     b.HasIndex("FirstUnitId");
 
                     b.HasIndex("FoodId");
-
-                    b.HasIndex("OwnerUserId");
 
                     b.HasIndex("SecondUnitId");
 
@@ -75,15 +68,11 @@ namespace redsquirrelcore.Migrations
 
                     b.Property<long?>("LocationId");
 
-                    b.Property<long?>("OwnerUserId");
-
                     b.HasKey("Id");
 
                     b.HasIndex("FoodId");
 
                     b.HasIndex("LocationId");
-
-                    b.HasIndex("OwnerUserId");
 
                     b.ToTable("Inventory");
                 });
@@ -111,11 +100,7 @@ namespace redsquirrelcore.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<long?>("OwnerUserId");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("OwnerUserId");
 
                     b.ToTable("Unit");
                 });
@@ -127,8 +112,6 @@ namespace redsquirrelcore.Migrations
 
                     b.Property<long?>("FirstUnitId");
 
-                    b.Property<long?>("OwnerUserId");
-
                     b.Property<double>("Ratio");
 
                     b.Property<long?>("SecondUnitId");
@@ -136,8 +119,6 @@ namespace redsquirrelcore.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("FirstUnitId");
-
-                    b.HasIndex("OwnerUserId");
 
                     b.HasIndex("SecondUnitId");
 
@@ -160,13 +141,6 @@ namespace redsquirrelcore.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("RedSquirrel.Data.Entities.Food", b =>
-                {
-                    b.HasOne("RedSquirrel.Data.Entities.User", "Owner")
-                        .WithMany("Foods")
-                        .HasForeignKey("OwnerUserId");
-                });
-
             modelBuilder.Entity("RedSquirrel.Data.Entities.FoodConversion", b =>
                 {
                     b.HasOne("RedSquirrel.Data.Entities.Unit", "FirstUnit")
@@ -176,10 +150,6 @@ namespace redsquirrelcore.Migrations
                     b.HasOne("RedSquirrel.Data.Entities.Food", "Food")
                         .WithMany()
                         .HasForeignKey("FoodId");
-
-                    b.HasOne("RedSquirrel.Data.Entities.User", "Owner")
-                        .WithMany()
-                        .HasForeignKey("OwnerUserId");
 
                     b.HasOne("RedSquirrel.Data.Entities.Unit", "SecondUnit")
                         .WithMany()
@@ -195,10 +165,6 @@ namespace redsquirrelcore.Migrations
                     b.HasOne("RedSquirrel.Data.Entities.Location", "Location")
                         .WithMany()
                         .HasForeignKey("LocationId");
-
-                    b.HasOne("RedSquirrel.Data.Entities.User", "Owner")
-                        .WithMany("Inventories")
-                        .HasForeignKey("OwnerUserId");
                 });
 
             modelBuilder.Entity("RedSquirrel.Data.Entities.Location", b =>
@@ -208,22 +174,11 @@ namespace redsquirrelcore.Migrations
                         .HasForeignKey("OwnerUserId");
                 });
 
-            modelBuilder.Entity("RedSquirrel.Data.Entities.Unit", b =>
-                {
-                    b.HasOne("RedSquirrel.Data.Entities.User", "Owner")
-                        .WithMany("Units")
-                        .HasForeignKey("OwnerUserId");
-                });
-
             modelBuilder.Entity("RedSquirrel.Data.Entities.UnitConversion", b =>
                 {
                     b.HasOne("RedSquirrel.Data.Entities.Unit", "FirstUnit")
                         .WithMany()
                         .HasForeignKey("FirstUnitId");
-
-                    b.HasOne("RedSquirrel.Data.Entities.User", "Owner")
-                        .WithMany("UnitConversions")
-                        .HasForeignKey("OwnerUserId");
 
                     b.HasOne("RedSquirrel.Data.Entities.Unit", "SecondUnit")
                         .WithMany()

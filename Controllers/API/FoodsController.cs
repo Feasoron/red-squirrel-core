@@ -9,7 +9,7 @@ namespace RedSquirrel.Controllers.API
 {
     [Route("api/[controller]")]
     [Authorize]
-    public class FoodsController : Controller
+    public class FoodsController : BaseController
     {
         private FoodService Service { get; set; }
 
@@ -22,7 +22,7 @@ namespace RedSquirrel.Controllers.API
         [HttpGet]
         public IEnumerable<Object> Get()
         {
-            return Service.GetAll();
+            return Service.GetAll(CurrentUserId);
         }
 
         // GET api/values/5
@@ -41,7 +41,7 @@ namespace RedSquirrel.Controllers.API
                 return new BadRequestResult();
             }
             
-            var id = Service.AddFood(value);
+            var id = Service.AddFood(value, CurrentUserId);
             return new CreatedResult("Food", id);
         }
 
