@@ -58,9 +58,12 @@ namespace RedSquirrel.Services
                 }
 
                 var ent = Mapper.Map<Data.Entities.Inventory>(inventory);
+                
+                ent.Food = Context.Foods.First(food => food.Id == ent.Food.Id);
+                ent.Unit = Context.Units.First(unit => unit.Id == ent.Unit.Id);
+                ent.Location = Context.Locations.First(location => location.Id == ent.Location.Id);
 
-                var user = Context.Users.First(u => u.UserId == userId);
-                ent.Owner = user;
+                ent.Owner = Context.Users.First(u => u.UserId == userId);
                 
                 Context.Inventories.Add(ent);
 

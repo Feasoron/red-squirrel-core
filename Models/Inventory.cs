@@ -9,5 +9,6 @@ namespace RedSquirrel.Models
         public virtual Location Location { get; set; }
         public Double Amount { get; set; }
         public User User { get; set; }
+        public virtual Unit Unit { get; set; }
     }
 }
