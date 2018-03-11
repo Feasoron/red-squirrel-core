@@ -60,6 +60,7 @@ namespace RedSquirrel
             services.AddTransient<FoodService>();
             services.AddTransient<LocationService>();
             services.AddTransient<UserService>();
+            services.AddTransient<InventoryService>();
             services.AddSingleton<AutoMapperConfiguration>();
 
             services.AddSingleton(p => p.GetService<AutoMapperConfiguration>().CreateMapper());
