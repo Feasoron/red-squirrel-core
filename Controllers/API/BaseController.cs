@@ -1,12 +1,47 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using RedSquirrel.Services;
 
 namespace RedSquirrel.Controllers.API
 {
     public class BaseController : Controller
     {
-        protected Int64 CurrentUserId => Convert.ToInt64(GetClaimValue("user_id"));
+        protected UserService UserService { get; }
+
+        public BaseController(UserService userService)
+        {
+            UserService = userService;
+        }
+       
+        protected async Task<Int64> GetCurrentUserId()
+        {
+                var claimId = GetClaimValue("user_id");
+                
+                if (!String.IsNullOrEmpty(claimId))
+                {
+                    return Convert.ToInt64(claimId);
+                }
+                
+                var externalId = GetExternalId();
+            
+                if (externalId == null)
+                {
+                   throw new InvalidOperationException();
+                }
+
+                var user = new Models.User
+                {
+                    Email = GetClaimValue("email"),
+                    Name = GetClaimValue("name"),
+                    ExternalUserId = externalId
+                };
+
+            var id = await UserService.GetOrCreateUserId(user);
+
+            return id;
+        }
 
         protected String GetExternalId()
         {

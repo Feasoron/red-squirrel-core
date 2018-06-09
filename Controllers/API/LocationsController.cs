@@ -14,44 +14,45 @@ namespace RedSquirrel.Controllers.API
     {
         private LocationService Service { get; }
 
-        public LocationsController(LocationService service)
+        public LocationsController(LocationService service, UserService userService)
+            : base(userService)
         {
             Service = service;
         }
 
         // GET api/values
         [HttpGet]
-        public IEnumerable<Object> Get()
+        public async Task<IEnumerable<Object>> Get()
         {
-            return Service.GetAll(CurrentUserId);
+            return await Service.GetAll(await GetCurrentUserId());
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public JsonResult Get(Int32 id)
+        public async Task<JsonResult> Get(Int32 id)
         {
-           return new JsonResult(Service.GetById(id));
+           return new JsonResult(await Service.GetById(id));
         }
 
         // POST api/values
         [HttpPost]
-        public ActionResult  Post([FromBody]Location value)
+        public async Task<ActionResult> Post([FromBody]Location value)
         {
             if(String.IsNullOrEmpty(value.Name) || value.Id.HasValue) 
             {
                 return new BadRequestResult();
             }
             
-            var id = Service.AddLocation(value, CurrentUserId);
+            var id = await Service.AddLocation(value, await GetCurrentUserId());
             return new CreatedResult("Location", id);
         }
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public ActionResult Put(Int32 id, [FromBody]Location value)
+        public async Task<ActionResult> Put(Int32 id, [FromBody]Location value)
         {
-            var resp = Service.UpdateLocation(value);
-            return Ok();
+            var resp = await Service.UpdateLocation(value);
+            return Ok(resp);
         }
 
         // DELETE api/values/5

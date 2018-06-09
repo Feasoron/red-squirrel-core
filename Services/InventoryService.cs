@@ -5,6 +5,7 @@ using RedSquirrel.Models;
 using AutoMapper;
 using ApplicationDbContext = RedSquirrel.Data.ApplicationDbContext;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace RedSquirrel.Services
@@ -19,12 +20,12 @@ namespace RedSquirrel.Services
             Log = log;
         }
 
-        public List<Inventory> GetAll(Int64 userId)
+        public async Task<List<Inventory>> GetAll(Int64 userId)
         {
             try
             {
-                var all =  Context.Inventories
-                    .Where(x => x.Owner == null || x.Owner.UserId == userId ).ToList();
+                var all = await Context.Inventories
+                    .Where(x => x.Owner == null || x.Owner.UserId == userId ).ToListAsync();
                 return all.Select(inventory => Mapper.Map<Inventory>(inventory)).ToList();
             }
             catch(Exception ex)
@@ -34,11 +35,11 @@ namespace RedSquirrel.Services
             }
         }
 
-        public Inventory GetById(Int32 id)
+        public async Task<Inventory> GetById(Int32 id)
         {
             try
             {
-                var inventory = Context.Locations.FirstOrDefault(inv => inv.Id == id);
+                var inventory = await Context.Locations.FirstOrDefaultAsync(inv => inv.Id == id);
                 return Mapper.Map<Inventory>(inventory);
             }
             catch(Exception ex)
@@ -59,14 +60,13 @@ namespace RedSquirrel.Services
 
                 var ent = Mapper.Map<Data.Entities.Inventory>(inventory);
                 
-                ent.Food = Context.Foods.First(food => food.Id == ent.Food.Id);
-                ent.Unit = Context.Units.First(unit => unit.Id == ent.Unit.Id);
-                ent.Location = Context.Locations.First(location => location.Id == ent.Location.Id);
+                ent.Food = await Context.Foods.FirstAsync(food => food.Id == ent.Food.Id);
+                ent.Unit = await Context.Units.FirstAsync(unit => unit.Id == ent.Unit.Id);
+                ent.Location = await Context.Locations.FirstAsync(location => location.Id == ent.Location.Id);
 
-                ent.Owner = Context.Users.First(u => u.UserId == userId);
+                ent.Owner = await Context.Users.FirstAsync(u => u.UserId == userId);
                 
-                Context.Inventories.Add(ent);
-
+                await Context.Inventories.AddAsync(ent);
                 await Context.SaveChangesAsync();
 
                 return ent.Id;
@@ -82,7 +82,7 @@ namespace RedSquirrel.Services
         {
             try
             {
-                var ent = Context.Locations.FirstOrDefault(u => u.Id == inventory.Id);
+                var ent = await Context.Locations.FirstOrDefaultAsync(u => u.Id == inventory.Id);
                 
                 if(ent == null)
                 {
@@ -92,7 +92,7 @@ namespace RedSquirrel.Services
                 
                 //create mappings
                 throw new NotImplementedException();
-               // await Context.SaveChangesAsync();
+                await Context.SaveChangesAsync();
 
               //  return true;
             }
@@ -107,7 +107,7 @@ namespace RedSquirrel.Services
         {
             try
             {
-                var inventory = Context.Inventories.FirstOrDefault(inv => inv.Id == id);
+                var inventory = await Context.Inventories.FirstOrDefaultAsync(inv => inv.Id == id);
 
                 if(inventory == null)
                 {

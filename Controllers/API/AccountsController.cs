@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RedSquirrel.Services;
@@ -10,15 +11,13 @@ namespace RedSquirrel.Controllers.API
     [Authorize]
     public class AccountsController : BaseController
     {
-        private UserService UserService { get; set; }
-        
         public AccountsController(UserService userService)
+            : base(userService)
         {
-            UserService = userService;
         }
         
         // GET
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
             var externalId = GetExternalId();
             
@@ -34,7 +33,7 @@ namespace RedSquirrel.Controllers.API
                 ExternalUserId = externalId
             };
 
-            var userId = UserService.GetOrCreateUserId(user);
+            var userId = await UserService.GetOrCreateUserId(user);
 
             return Ok(userId);
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RedSquirrel.Models;
@@ -14,7 +15,8 @@ namespace RedSquirrel.Controllers.API
     {
         private InventoryService Service { get; set; }
 
-        public InventoriesController(InventoryService service)
+        public InventoriesController(InventoryService service, UserService userService)
+            : base(userService)
         {
             Service = service;
         }
@@ -22,44 +24,44 @@ namespace RedSquirrel.Controllers.API
 
         // GET api/values
         [HttpGet]
-        public IEnumerable<Object> Get()
+        public async Task<IEnumerable<Object>> Get()
         {
-            return Service.GetAll(CurrentUserId);
+            return await Service.GetAll(await GetCurrentUserId());
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public JsonResult Get(Int32 id)
+        public async Task<JsonResult> Get(Int32 id)
         {
-            return new JsonResult(Service.GetById(id));
+            return new JsonResult(await Service.GetById(id));
         }
 
         // POST api/values
         [HttpPost]
-        public ActionResult  Post([FromBody] Inventory value)
+        public async Task<ActionResult> Post([FromBody] Inventory value)
         {
             /*if(String.IsNullOrEmpty(value.Name) || value.Id.HasValue) 
             {
                 return new BadRequestResult();
             }*/
 
-            var id = Service.AddInventory(value, CurrentUserId);
+            var id = await Service.AddInventory(value, await GetCurrentUserId());
             return new CreatedResult("Inventory", id);
         }
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public ActionResult Put(Int32 id, [FromBody]Inventory value)
+        public async Task<ActionResult> Put(Int32 id, [FromBody]Inventory value)
         {
-            var resp = Service.UpdateInventory(value);
+            var resp = await Service.UpdateInventory(value);
             return Ok(resp);
         }
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public ActionResult Delete(Int32 id)
+        public async Task<ActionResult> Delete(Int32 id)
         {
-            var resp = Service.Delete(id);
+            var resp = await Service.Delete(id);
             return Ok(resp);
         }
        
