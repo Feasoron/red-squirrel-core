@@ -14,6 +14,7 @@ namespace RedSquirrel
         private UserService UserService { get; set; }
         public AuthEvent(UserService service)
         {
+            
             UserService = service;
             OnTokenValidated = context =>
             {
@@ -21,10 +22,6 @@ namespace RedSquirrel
                 if (context.SecurityToken is JwtSecurityToken accessToken)
                 {
                     var identity = context.Principal.Identity as ClaimsIdentity;
-                    var externalId = GetExternalId(identity);
-                    var id = UserService.GetUserId(externalId);
-                    
-                    identity?.AddClaim(new Claim("user_id", id.ToString()));
                 }
 
                 return Task.CompletedTask;

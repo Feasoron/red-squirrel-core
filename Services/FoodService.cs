@@ -5,6 +5,7 @@ using RedSquirrel.Models;
 using AutoMapper;
 using ApplicationDbContext = RedSquirrel.Data.ApplicationDbContext;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace RedSquirrel.Services
@@ -19,12 +20,12 @@ namespace RedSquirrel.Services
             Log = log;
         }
 
-        public List<Food> GetAll(Int64 userId)
+        public async Task<List<Food>> GetAll(Int64 userId)
         {
             try
             {
-                var all =  Context.Foods
-                    .Where(x => x.Owner == null || x.Owner.UserId == userId ).ToList();
+                var all = await Context.Foods
+                    .Where(x => x.Owner == null || x.Owner.UserId == userId ).ToListAsync();
                 
                 return all.Select(food => Mapper.Map<Food>(food)).ToList();
             }
@@ -35,11 +36,11 @@ namespace RedSquirrel.Services
             }
         }
 
-        public Food GetById(Int32 id)
+        public async Task<Food> GetById(Int32 id)
         {
             try
             {
-                var food = Context.Foods.FirstOrDefault(f => f.Id == id);
+                var food = await Context.Foods.FirstOrDefaultAsync(f => f.Id == id);
                 return Mapper.Map<Food>(food);
             }
             catch(Exception ex)
@@ -60,11 +61,10 @@ namespace RedSquirrel.Services
                 
                 var ent = Mapper.Map<Data.Entities.Food>(food);
                 
-                var user = Context.Users.First(u => u.UserId == userId);
+                var user = await Context.Users.FirstAsync(u => u.UserId == userId);
                 ent.Owner = user;
                 
-                Context.Foods.Add(ent);
-
+                await Context.Foods.AddAsync(ent);
                 await Context.SaveChangesAsync();
 
                 return ent.Id;
@@ -80,7 +80,7 @@ namespace RedSquirrel.Services
         {
             try
             {
-                var ent = Context.Foods.FirstOrDefault(f => f.Id == food.Id);
+                var ent = await Context.Foods.FirstOrDefaultAsync(f => f.Id == food.Id);
                 
                 if(ent == null)
                 {
@@ -104,7 +104,7 @@ namespace RedSquirrel.Services
         {
             try
             {
-                var food = Context.Foods.FirstOrDefault(u => u.Id == id);
+                var food = await Context.Foods.FirstOrDefaultAsync(u => u.Id == id);
                 
                 if(food == null)
                 {

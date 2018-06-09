@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RedSquirrel.Models;
@@ -11,43 +12,45 @@ namespace RedSquirrel.Controllers.API
     [Authorize]
     public class UnitsController : BaseController
     {
-        protected UnitService Service { get; set; }
+        private UnitService Service { get; set; }
 
-        public UnitsController(UnitService service)
+        public UnitsController(UnitService service, UserService userService)
+            : base(userService)
         {
             Service = service;
         }
 
         // GET api/values
         [HttpGet]
-        public IEnumerable<Object> Get()
+        public async Task<IEnumerable<Object>> Get()
         {
-            return Service.GetAll(CurrentUserId);
+            var units = await Service.GetAll(await GetCurrentUserId());
+            return units;
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public JsonResult Get(int id)
+        public async Task<JsonResult> Get(int id)
         {
-           return new JsonResult(Service.GetById(id));
+           return new JsonResult(await Service.GetById(id));
         }
 
         // POST api/values
         [HttpPost]
-        public ActionResult  Post([FromBody] Unit value)
+        public async Task<ActionResult> Post([FromBody] Unit value)
         {
             if(String.IsNullOrEmpty(value.Name) || value.Id.HasValue) 
             {
                 return new BadRequestResult();
             }
 
-            var id = Service.AddUnit(value, CurrentUserId);
+            var id = await Service.AddUnit(value, await GetCurrentUserId());
             return new CreatedResult("Units", id);
         }
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public ActionResult Put(int id, [FromBody]Unit value)
+        public ActionResult Put(Int32 id, [FromBody]Unit value)
         {
             var resp = Service.UpdateUnit(value);
             return Ok();

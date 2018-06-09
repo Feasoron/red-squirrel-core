@@ -5,6 +5,7 @@ using RedSquirrel.Models;
 using AutoMapper;
 using ApplicationDbContext = RedSquirrel.Data.ApplicationDbContext;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace RedSquirrel.Services
@@ -19,12 +20,12 @@ namespace RedSquirrel.Services
             Log = log;
         }
 
-        public List<Location> GetAll(Int64 userId)
+        public async Task<List<Location>> GetAll(Int64 userId)
         {
             try
             {
-                var all =  Context.Locations
-                    .Where(x => x.Owner == null || x.Owner.UserId == userId ).ToList();
+                var all = await Context.Locations
+                    .Where(x => x.Owner == null || x.Owner.UserId == userId ).ToListAsync();
                 return all.Select(location => Mapper.Map<Location>(location)).ToList();
             }
             catch(Exception ex)
@@ -34,11 +35,11 @@ namespace RedSquirrel.Services
             }
         }
 
-        public Location GetById(Int32 id)
+        public async Task<Location> GetById(Int32 id)
         {
             try
             {
-                var location = Context.Locations.FirstOrDefault(loc => loc.Id == id);
+                var location = await Context.Locations.FirstOrDefaultAsync(loc => loc.Id == id);
                 return Mapper.Map<Location>(location);
             }
             catch(Exception ex)
@@ -59,11 +60,10 @@ namespace RedSquirrel.Services
 
                 var ent = Mapper.Map<Data.Entities.Location>(location);
 
-                var user = Context.Users.First(u => u.UserId == userId);
+                var user = await Context.Users.FirstAsync(u => u.UserId == userId);
                 ent.Owner = user;
                 
-                Context.Locations.Add(ent);
-
+                await Context.Locations.AddAsync(ent);
                 await Context.SaveChangesAsync();
 
                 return ent.Id;
@@ -79,7 +79,7 @@ namespace RedSquirrel.Services
         {
             try
             {
-                var ent = Context.Locations.FirstOrDefault(u => u.Id == location.Id);
+                var ent = await Context.Locations.FirstOrDefaultAsync(u => u.Id == location.Id);
                 
                 if(ent == null)
                 {
@@ -103,7 +103,7 @@ namespace RedSquirrel.Services
         {
             try
             {
-                var location = Context.Locations.FirstOrDefault(loc => loc.Id == id);
+                var location = await Context.Locations.FirstOrDefaultAsync(loc => loc.Id == id);
 
                 if(location == null)
                 {

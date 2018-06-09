@@ -5,6 +5,7 @@ using RedSquirrel.Models;
 using AutoMapper;
 using ApplicationDbContext = RedSquirrel.Data.ApplicationDbContext;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace RedSquirrel.Services
@@ -19,15 +20,13 @@ namespace RedSquirrel.Services
             Log = log;
         }
 
-        public List<Unit> GetAll(Int64 userId)
+        public async Task<List<Unit>> GetAll(Int64 userId)
         {
             try
             {
-                var all =  Context.Units.ToList();
+                var all =  await Context.Units.Where(x => x.Owner == null || x.Owner.UserId == userId ).ToListAsync();
                 
-                return Context.Units
-                     .Where(x => x.Owner == null || x.Owner.UserId == userId )
-                    .ToList()
+                return all
                     .Select(unit => Mapper.Map<Unit>(unit))
                     .ToList();
             }
@@ -38,11 +37,11 @@ namespace RedSquirrel.Services
             }
         }
 
-        public Unit GetById(Int32 id)
+        public async Task<Unit> GetById(Int32 id)
         {
             try
             {
-                var unit = Context.Units.FirstOrDefault(u => u.Id == id);
+                var unit = await Context.Units.FirstOrDefaultAsync(u => u.Id == id);
                 return Mapper.Map<Unit>(unit);
             }
             catch(Exception ex)
@@ -63,11 +62,10 @@ namespace RedSquirrel.Services
 
                 var ent = Mapper.Map<Data.Entities.Unit>(unit);
                 
-                var user = Context.Users.First(u => u.UserId == userId);
+                var user = await Context.Users.FirstAsync(u => u.UserId == userId);
                 ent.Owner = user;
                 
-                Context.Units.Add(ent);
-
+                await Context.Units.AddAsync(ent);
                 await Context.SaveChangesAsync();
 
                 return ent.Id;
@@ -83,7 +81,7 @@ namespace RedSquirrel.Services
         {
             try
             {
-                var ent = Context.Units.FirstOrDefault(u => u.Id == unit.Id);
+                var ent = await Context.Units.FirstOrDefaultAsync(u => u.Id == unit.Id);
                 
                 if(ent == null)
                 {
@@ -107,7 +105,7 @@ namespace RedSquirrel.Services
         {
             try
             {
-                var unit = Context.Units.FirstOrDefault(u => u.Id == id);
+                var unit = await Context.Units.FirstOrDefaultAsync(u => u.Id == id);
                 
                 if(unit == null)
                 {
