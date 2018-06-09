@@ -35,8 +35,6 @@ namespace RedSquirrel.Controllers.API
             };
 
             var userId = UserService.GetOrCreateUserId(user);
-            
-            //User.Claims.
 
             return Ok(userId);
         }

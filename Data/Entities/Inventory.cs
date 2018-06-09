@@ -11,6 +11,7 @@ namespace RedSquirrel.Data.Entities
 
         public virtual Food Food { get; set; }
         public virtual Location Location { get; set; }
+        public virtual Unit Unit { get; set; }
         public Double Amount { get; set; }
 
         public virtual User Owner { get; set; }
